@@ -21,6 +21,19 @@
         { "label": "프롬프트 파일 다운로드", "fileType": "ZIP", "url": "#" },
         { "label": "사용 가이드 다운로드", "fileType": "PPTX", "url": "#" }
       ]
+    },
+    {
+      "id": "m365-copilot-daily-prompt-30",
+      "title": "M365 Copilot 30일 데일리 프롬프트",
+      "icon": "images/library/ai/prompt.png",
+      "fallbackEmoji": "🗓️",
+      "description": "매일 바로 따라 쓸 수 있는 M365 Copilot 프롬프트 30가지를 모은 시리즈입니다. 이메일/채팅 요약, 문서·파일 검색, 회의 준비와 결과 공유, 설문·FAQ 작성, 성과 평가, SNS 게시글, 면접 질문 추천까지 실무 시나리오별 프롬프트를 1일차부터 30일차까지 순서대로 익힐 수 있습니다.",
+      "downloads": [
+        { "label": "30일 시리즈 전체 보기 (ModernWork Korea)", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/categories/#copilot-daily-prompt" },
+        { "label": "1일차 — 이메일/채팅 요약", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot%20daily%20prompt/daily-prompt-1/" },
+        { "label": "15일차 — 게시글 작성", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot%20daily%20prompt/daily-prompt-15/" },
+        { "label": "30일차 — 회의 안건 작성", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot%20daily%20prompt/daily-prompt-30/" }
+      ]
     }
   ]
 }
