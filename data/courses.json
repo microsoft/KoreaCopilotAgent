@@ -1,39 +1,6 @@
 {
   "items": [
     {
-      "id": "m365-fundamentals-on-demand",
-      "title": "Microsoft 365 기본 교육 과정 (온디맨드)",
-      "icon": "images/illustrations/m365-fundamentals-on-demand.png",
-      "fallbackEmoji": "💼",
-      "description": "Teams·OneDrive·SharePoint·New Outlook 등 Microsoft 365 핵심 기능을 실무 관점에서 다루는 무료 온디맨드 교육. 디지털 트랜스포메이션 개념부터 협업·생산성 활용법, 퀴즈로 학습 내용 점검까지 한 번에 정리합니다.",
-      "downloads": [
-        { "label": "온디맨드 등록", "fileType": "URL", "url": "https://info.microsoft.com/KO-COPM365-VDEO-FY25-02Feb-12-Microsoft-365-Basic-Training-Course-SRGCM13806_LP01-Registration---Form-in-Body.html" },
-        { "label": "원문 소개 (ModernWork Korea)", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/agent/M365userguide/" }
-      ]
-    },
-    {
-      "id": "copilot-chat-fundamentals-on-demand",
-      "title": "M365 Copilot Chat 기본 교육 과정 (온디맨드)",
-      "icon": "images/illustrations/copilot-chat-fundamentals-on-demand.png",
-      "fallbackEmoji": "🎧",
-      "description": "M365 Copilot Chat의 개요·아키텍처부터 Copilot Pages, 파일 업로드, 이미지 생성, 데이터 시각화, 에이전트 기반 확장까지 실습 중심으로 익히는 무료 온디맨드 교육입니다.",
-      "downloads": [
-        { "label": "온디맨드 등록", "fileType": "URL", "url": "https://info.microsoft.com/KO-COPM365-VDEO-FY25-02Feb-19-Microsoft-365-Copilot-Chat-fundamentals-course-SRGCM13842_LP01-Registration---Form-in-Body.html" },
-        { "label": "원문 소개 (ModernWork Korea)", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/agent/CopilotChatguide/" }
-      ]
-    },
-    {
-      "id": "copilot-agent-design-guide-5hr",
-      "title": "Agent 설계 가이드 (5시간 온디맨드)",
-      "icon": "images/illustrations/copilot-agent-design-guide-5hr.png",
-      "fallbackEmoji": "⚙️",
-      "description": "KOSS 진민아 MVP가 진행한 5시간 분량의 Copilot 에이전트 설계 A to Z. Microsoft 365 Copilot과 Copilot Studio·Agent Builder 비교, 대화 흐름 설계, 프로세스 자동화·배포까지 실습 중심으로 다룹니다.",
-      "downloads": [
-        { "label": "온디맨드 시청 (aka.ms/CopilotAgentTraining)", "fileType": "URL", "url": "https://aka.ms/CopilotAgentTraining" },
-        { "label": "원문 소개 (ModernWork Korea)", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/agent/AgentDevGuide/" }
-      ]
-    },
-    {
       "id": "copilot-studio-agent-academy-intro",
       "title": "Copilot Studio Agent Academy 소개",
       "icon": "images/illustrations/copilot-studio-agent-academy-intro.png",
@@ -42,18 +9,6 @@
       "downloads": [
         { "label": "Agent Academy 공식 사이트", "fileType": "URL", "url": "https://microsoft.github.io/agent-academy/" },
         { "label": "한국어 소개 글", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot/agentacademy/" }
-      ]
-    },
-    {
-      "id": "copilot-studio-webinar-replay",
-      "title": "Copilot Studio 온라인 세미나 다시보기",
-      "icon": "images/illustrations/copilot-studio-webinar-replay.png",
-      "fallbackEmoji": "📊",
-      "description": "Modern Work × BizApps STU가 함께 진행한 Copilot Studio 웨비나의 다시보기 영상과 발표 자료. Copilot Studio 핵심 시나리오와 실무 적용 방법을 짧게 점검하기에 적합합니다.",
-      "downloads": [
-        { "label": "다시보기 영상 (aka.ms/CopilotStudioWebinar_ko-kr)", "fileType": "URL", "url": "https://aka.ms/CopilotStudioWebinar_ko-kr" },
-        { "label": "발표 자료 (aka.ms/0428deck)", "fileType": "URL", "url": "https://aka.ms/0428deck" },
-        { "label": "원문 소개 (ModernWork Korea)", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/agent/StudioWebinar/" }
       ]
     },
     {
