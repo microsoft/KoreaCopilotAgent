@@ -1,28 +1,6 @@
 {
   "items": [
     {
-      "id": "exec-summary-prompt",
-      "title": "임원 보고용 요약 프롬프트",
-      "icon": "images/illustrations/exec-summary-prompt.png",
-      "fallbackEmoji": "📄",
-      "description": "긴 문서나 보고서를 임원용으로 요약하여 핵심 인사이트를 도출합니다.",
-      "downloads": [
-        { "label": "프롬프트 파일 다운로드", "fileType": "ZIP", "url": "#" },
-        { "label": "사용 가이드 다운로드", "fileType": "PDF", "url": "#" }
-      ]
-    },
-    {
-      "id": "data-analysis-prompt-pack",
-      "title": "데이터 분석 프롬프트 팩",
-      "icon": "images/illustrations/data-analysis-prompt-pack.png",
-      "fallbackEmoji": "📊",
-      "description": "다양한 데이터 분석 시나리오에 맞춰 프롬프트 모음으로 분석을 가속화합니다.",
-      "downloads": [
-        { "label": "프롬프트 파일 다운로드", "fileType": "ZIP", "url": "#" },
-        { "label": "사용 가이드 다운로드", "fileType": "PPTX", "url": "#" }
-      ]
-    },
-    {
       "id": "m365-copilot-daily-prompt-30",
       "title": "M365 Copilot 30일 데일리 프롬프트",
       "icon": "images/library/ai/prompt.png",
