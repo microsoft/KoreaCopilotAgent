@@ -61,6 +61,16 @@
         { "label": "핸즈온 #3 — 자율동작 에이전트 (MCP)", "fileType": "URL", "url": "https://chichoi1991.github.io/Agent_Blog/chapters/ws3-0-overview/" },
         { "label": "[리뉴얼] Copilot Studio 기본 기능 통합 핸즈온", "fileType": "URL", "url": "https://chichoi1991.github.io/Agent_Blog/chapters/ws5-0-overview/" }
       ]
+    },
+    {
+      "id": "faq-agent-builder",
+      "title": "FAQ Agent 만들기 실습 — Agent Builder",
+      "icon": "images/illustrations/copilot-faq-agent.png",
+      "fallbackEmoji": "❓",
+      "description": "코딩 없이 Agent Builder로 Copilot Help Buddy FAQ 에이전트를 만드는 단계별 실습 가이드입니다. Copilot Chat에서 에이전트 생성, 지식 소스 연결, 안내 문구 구성까지 한 흐름으로 따라 할 수 있습니다.",
+      "downloads": [
+        { "label": "핸즈온 페이지 열기", "fileType": "URL", "url": "templates/faq-agent-builder/" }
+      ]
     }
   ]
 }
