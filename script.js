@@ -40,6 +40,11 @@
   let currentFilter = "agent";
   let currentQuery = "";
 
+  const initialFilter = new URLSearchParams(window.location.search).get("filter");
+  if (initialFilter && tabs.some((tab) => tab.getAttribute("data-filter") === initialFilter)) {
+    currentFilter = initialFilter;
+  }
+
   function escapeHtml(value) {
     return String(value == null ? "" : value)
       .replace(/&/g, "&amp;")
@@ -196,6 +201,12 @@
   }
 
   /* ---------- Filter tabs ---------- */
+  tabs.forEach((tab) => {
+    const isActive = (tab.getAttribute("data-filter") || "all") === currentFilter;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => {

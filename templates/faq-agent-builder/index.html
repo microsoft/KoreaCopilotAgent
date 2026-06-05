@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="코딩 없이 만드는 FAQ 에이전트. Agent Builder로 Copilot Help Buddy를 직접 만드는 실습 가이드." />
+  <meta name="theme-color" content="#fafbfd" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="../../images/favicon-256.png" />
+
+  <title>FAQ Agent 만들기 실습 — M365 Agent Templates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    /* ===== Sub-page specific styles ===== */
+    .subpage-hero {
+      padding: 48px 0 56px;
+      background:
+        radial-gradient(900px 480px at 80% 0%, rgba(124, 58, 237, 0.10), transparent 60%),
+        radial-gradient(700px 360px at 5% 30%, rgba(37, 99, 255, 0.08), transparent 60%),
+        linear-gradient(180deg, #f6f7fc 0%, #fafbfd 100%);
+    }
+    .subpage-hero .hero-grid {
+      display: block;
+      max-width: 820px;
+    }
+    .subpage-hero h1 {
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .subpage-hero .lead {
+      font-size: 17px;
+      color: var(--text-dim);
+      margin: 0 0 28px;
+      max-width: 56ch;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 18px;
+    }
+    .hero-meta code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 2px 8px;
+      background: #eef0f8;
+      border-radius: 6px;
+      color: var(--text-soft);
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      transition: color 0.15s ease;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Sections */
+    .section {
+      padding: 72px 0;
+    }
+    .section-alt {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .section-head .eyebrow { margin-bottom: 16px; }
+    .section-head h2 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-head .lead {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* Requirements note */
+    .requirements-note {
+      margin-top: 36px;
+      padding: 18px 22px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 13.5px;
+      color: var(--text-soft);
+    }
+    .requirements-note strong {
+      color: var(--text);
+      margin-right: 6px;
+    }
+    .requirements-note span.sep {
+      color: var(--muted);
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .steps li {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-xs);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 14px rgba(124, 58, 237, 0.24);
+    }
+    .steps li h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .steps li p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .steps li p code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--border-strong);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f3eaff 0%, #eaf1ff 100%);
+      border-radius: 14px;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .feature p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+
+    /* Lab instruction block */
+    .lab-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 28px;
+    }
+    .lab-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lab-block h3 .lab-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .lab-block .lab-desc {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+    .lab-block .lab-image {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-table th {
+      background: var(--surface-2);
+      font-weight: 700;
+      color: var(--text);
+      width: 140px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .spec-table td {
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+    .spec-table tr:last-child th,
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+    .spec-table code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Code / instruction block */
+    .instruction-box {
+      background: #f8f5ff;
+      border: 1px solid #e8dff5;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 16px 0;
+    }
+    .instruction-box .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+    .instruction-box pre {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .instruction-box-blue {
+      background: #f0f4ff;
+      border-color: #dce4f8;
+    }
+    .instruction-box-blue .label {
+      color: var(--blue);
+    }
+
+    /* Knowledge source list */
+    .knowledge-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .knowledge-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+    .knowledge-list li .k-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    /* Test question cards */
+    .test-questions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .test-q {
+      padding: 16px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .test-q:hover {
+      border-color: var(--border);
+      background: #fff;
+    }
+    .test-q .q-icon {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    /* Idea cards */
+    .idea-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .idea-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .idea-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .idea-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .idea-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .prompt-section {
+      max-width: 820px;
+      margin: 28px auto 0;
+    }
+    .prompt-section h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+
+    /* Tip callout */
+    .tip-callout {
+      display: flex;
+      gap: 14px;
+      padding: 18px 22px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+    .tip-callout .tip-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .tip-callout strong {
+      color: var(--text);
+    }
+
+    /* Copy button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      float: right;
+      margin-top: -4px;
+    }
+    .copy-btn:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+    }
+    .copy-btn.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Inline copy button */
+    .copy-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .copy-inline:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+      color: var(--text-soft);
+    }
+    .copy-inline.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Click-to-copy hint for test questions */
+    .click-to-copy {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 4px;
+      transition: color 0.15s ease;
+    }
+    .test-q:hover .click-to-copy {
+      color: var(--blue);
+    }
+    .test-q.copied-card {
+      border-color: #6ee7b7 !important;
+      background: #ecfdf5 !important;
+    }
+    .test-q.copied-card .click-to-copy {
+      color: #059669;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .subpage-hero { padding: 36px 0 48px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .knowledge-list { grid-template-columns: 1fr; }
+      .test-questions { grid-template-columns: 1fr; }
+      .idea-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 56px 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .lab-block { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../../index.html" aria-label="M365 Agent Templates 홈">
+        <span class="brand-logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-text">Microsoft &nbsp;M365 <em>Agent</em> Templates</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="주 메뉴">
+        <a href="#overview">개요</a>
+        <a href="#lab">실습</a>
+        <a href="#spec">에이전트 스펙</a>
+        <a href="#ideas">확장 아이디어</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="subpage-hero">
+      <div class="container">
+        <a class="back-link" href="../../index.html?filter=handson#templates">← 핸즈온 목록으로 돌아가기</a>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Hands-on Lab · Agent Builder</span>
+            <h1>
+              코딩 없이 5분 만에<br />
+              <span class="gradient-text">FAQ 에이전트</span>를<br />
+              직접 만들어 보세요
+            </h1>
+            <p class="lead">
+              Copilot Chat의 Agent Builder를 사용해 안내(Instructions)와 웹 지식 소스만으로
+              "Copilot Help Buddy" FAQ 에이전트를 만드는 단계별 실습입니다.
+              별도의 도구 설치나 코딩 없이, 웹 브라우저 또는 M365 Copilot 앱만 있으면 충분합니다.
+            </p>
+
+            <div class="hero-meta">
+              <span>Microsoft Korea</span>
+              <span aria-hidden="true">·</span>
+              <span>Hands-on Lab</span>
+              <span aria-hidden="true">·</span>
+              <span>소요 시간 약 <code>10~15분</code></span>
+              <span aria-hidden="true">·</span>
+              <span>난이도 <code>초급</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">개요</span>
+          <h2>Agent Builder란?</h2>
+          <p class="lead">Copilot Chat 안에서 별도 도구 설치 없이, 자연어 안내(Instructions)만으로 나만의 에이전트를 만드는 기능입니다.</p>
+        </header>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">💬</div>
+            <h3>Copilot Chat 안에서 제작</h3>
+            <p>별도의 도구나 환경 설치가 필요 없습니다. 웹 브라우저 또는 M365 Copilot 앱에서 바로 에이전트를 만들 수 있습니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">📝</div>
+            <h3>안내(Instructions)만으로 동작</h3>
+            <p>코딩 없이, "어떻게 답해야 하는지"를 한국어로 설명하기만 하면 됩니다. 답변 규칙, 톤, 출력 형식을 자유롭게 설정하세요.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🆓</div>
+            <h3>Copilot Studio 없이 시작</h3>
+            <p>Copilot Chat의 Agent Builder에서 안내 기반 + 공개 웹사이트 지식 소스 에이전트를 만들 수 있습니다. 사용 가능 여부는 조직의 라이선스와 관리자 정책에 따라 달라질 수 있습니다.</p>
+          </article>
+        </div>
+
+        <div class="requirements-note">
+          <strong>사전 요구사항</strong>
+          <span>조직 계정(Entra ID)</span>
+          <span class="sep">·</span>
+          <span>Copilot Chat 접근 권한</span>
+          <span class="sep">·</span>
+          <span>웹 브라우저 (Edge / Chrome 권장) 또는 M365 Copilot 앱</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>에이전트 제작 4단계 흐름</h2>
+          <p class="lead">Agent Builder에서 에이전트를 만드는 전체 과정을 한눈에 확인하세요.</p>
+        </header>
+
+        <ol class="steps">
+          <li>
+            <span class="step-num">1</span>
+            <h3>Agent Builder 열기</h3>
+            <p>웹(<a href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener" style="color: var(--blue);">m365.cloud.microsoft/chat</a>) 또는 <strong>M365 Copilot 앱</strong>에서 에이전트 탭 → <strong>+ 새 에이전트</strong>를 클릭합니다.</p>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <h3>구성(Configure) 설정</h3>
+            <p><strong>이름·설명·안내(Instructions)</strong>를 입력합니다. 안내에 답변 규칙, 출력 형식, 톤을 자세히 적을수록 에이전트가 정확해집니다.</p>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <h3>지식(Knowledge) 연결</h3>
+            <p><strong>웹 사이트 URL</strong>이나 <strong>SharePoint 파일</strong>을 등록해 에이전트의 전문성을 높입니다.</p>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <h3>테스트 & 만들기</h3>
+            <p><strong>"사용해 보기"</strong> 탭에서 바로 테스트하고, 만족스러우면 <strong>"만들기"</strong> 버튼을 눌러 공유 범위를 선택합니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- HANDS-ON LAB -->
+    <section id="lab" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Hands-on Lab</span>
+          <h2>Copilot Help Buddy 에이전트 만들기</h2>
+          <p class="lead">Microsoft 공식 소스를 기반으로 Copilot 사용법·기능·활용 팁을 한국어로 친절하게 안내하는 에이전트를 직접 만들어 봅니다.</p>
+        </header>
+
+        <!-- Step 1 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">1</span>
+            Agent Builder 열기
+          </h3>
+          <p class="lab-desc">
+            아래 두 가지 방법 중 편한 쪽으로 접속하세요.
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th>방법 A</th>
+              <td>웹 브라우저에서 <a href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener" style="color: var(--blue); font-weight: 600;">m365.cloud.microsoft/chat</a>에 접속합니다.</td>
+            </tr>
+            <tr>
+              <th>방법 B</th>
+              <td><strong>M365 Copilot 앱</strong>(데스크톱 또는 모바일)을 열어도 동일하게 사용할 수 있습니다.</td>
+            </tr>
+          </table>
+
+          <p class="lab-desc" style="margin-top: 16px;">
+            로그인 후 좌측 사이드바에서 <strong>"에이전트"</strong> 탭을 클릭한 뒤, 상단의 <strong>"+ 새 에이전트"</strong> 버튼을 클릭하면 아래와 같은 Agent Builder 첫 화면이 열립니다.
+          </p>
+
+          <img src="images/step1-agent-builder-start.png" alt="Agent Builder 첫 화면 — 만들려는 에이전트 설명을 입력하거나 구성으로 건너뛰기를 클릭할 수 있습니다." class="lab-image" />
+
+          <p class="lab-desc">
+            이 화면에서 <strong>"만들려는 에이전트 설명"</strong> 입력란에 자연어로 설명하거나, 오른쪽의 <strong>"구성으로 건너뛰기 →"</strong>를 클릭해 직접 구성할 수 있습니다. 이 실습에서는 <strong>"구성으로 건너뛰기"</strong>를 클릭하세요.
+          </p>
+
+          <div class="tip-callout">
+            <span class="tip-icon">⚠️</span>
+            <div>
+              <strong>참고</strong> — 이 실습은 Copilot Chat에 내장된 <strong>Agent Builder</strong> 기능을 사용합니다.
+              Copilot Studio 포털을 열지 않고 Copilot Chat 안에서 구성하는 흐름입니다. 표시되는 기능은 조직 설정에 따라 다를 수 있습니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">2</span>
+            구성(Configure) 탭 — 이름·설명·안내 입력
+          </h3>
+          <p class="lab-desc">
+            "구성으로 건너뛰기"를 클릭하면 아래와 같은 구성 화면이 열립니다. 왼쪽에는 자연어 입력란, 오른쪽에는 <strong>"구성"</strong>과 <strong>"사용해 보기"</strong> 두 개의 탭이 표시됩니다.
+          </p>
+
+          <img src="images/step2-configure-instructions-knowledge.png" alt="Agent Builder 구성 화면 — 안내 영역과 지식 영역을 설정하는 화면" class="lab-image" />
+
+          <p class="lab-desc">
+            오른쪽 <strong>"구성"</strong> 탭에서 에이전트의 이름, 안내(Instructions), 지식(Knowledge)을 설정합니다. 아래 표의 값을 그대로 복사해서 붙여넣으세요.
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td>
+                <span class="copyable" data-copy="Copilot Help Buddy"><strong>Copilot Help Buddy</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="이름 복사">복사</button></span>
+              </td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>
+                <span class="copyable" data-copy="Microsoft 공식 소스를 기반으로 Copilot 사용법, 기능, 활용 팁을 한국어로 친절하게 안내하는 에이전트">Microsoft 공식 소스를 기반으로 Copilot 사용법, 기능, 활용 팁을 한국어로 친절하게 안내하는 에이전트 <button class="copy-inline" onclick="copyText(this)" aria-label="설명 복사">복사</button></span>
+              </td>
+            </tr>
+            <tr>
+              <th>로고</th>
+              <td>원하는 아이콘을 선택하거나, 기본 로고를 사용합니다. 에이전트의 개성을 담아 보세요!</td>
+            </tr>
+          </table>
+
+          <div class="instruction-box" style="margin-top: 20px;">
+            <div class="label">안내 (Instructions) — 아래 전체를 복사하여 "안내" 영역에 붙여넣으세요</div>
+            <button class="copy-btn" onclick="copyInstructions(this)" aria-label="안내 복사">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              복사
+            </button>
+            <pre id="instructions-text">당신은 Microsoft Copilot 사용자를 돕는 안내 비서입니다.
+사용자가 Copilot의 기능, 사용법, 라이선스, 보안, 에이전트 등에 대해 질문하면
+아래 원칙을 지켜 답변하세요.
+
+# 답변 원칙
+1. 반드시 등록된 4개 공식 사이트의 내용을 우선 근거로 답하세요.
+   - learn.microsoft.com (기술 문서 — 가장 우선 참조)
+   - adoption.microsoft.com (도입·활용 가이드)
+   - support.microsoft.com (공식 KB 문서·사용법만 참조)
+     ⚠️ 주의: support.microsoft.com 내 커뮤니티 Q&A(사용자 질의응답)는
+     공식 문서가 아닙니다. "Replies", "Asked by" 등이 보이는
+     커뮤니티 게시글은 근거로 사용하지 마세요.
+   - techcommunity.microsoft.com/blog (공식 블로그 게시물만 참조)
+     ⚠️ 주의: /discussions/ 경로의 포럼 스레드는 사용자 작성 글이므로
+     공식 근거로 사용하지 마세요.
+2. 최신 정보를 우선하세요. 같은 주제에 대해 여러 문서가 있으면
+   가장 최근 업데이트된 문서를 근거로 답변하세요.
+3. 추측하지 말고, 공식 문서에 없는 내용은 "공식 문서에서 확인되지 않습니다"라고 답하세요.
+4. 답변 마지막에는 참고한 출처 링크를 함께 제공하세요.
+
+# 출력 형식
+✅ 한 줄 요약: (핵심을 한 문장으로)
+📌 상세 설명: (단계 또는 항목별로 정리, 3~5줄)
+💡 활용 팁: (실무에 바로 적용 가능한 예시 1개)
+🔗 참고 출처: (공식 문서 URL 1~3개)
+
+# 톤
+- 모든 답변은 한국어로, 실무자가 이해하기 쉽게.
+- 전문 용어가 나오면 한 줄로 풀어서 설명.
+- 신입사원도 이해할 수 있는 친절한 톤을 유지하세요.</pre>
+          </div>
+
+          <div class="tip-callout">
+            <span class="tip-icon">💡</span>
+            <div>
+              <strong>Tip</strong> — 안내가 구체적일수록 에이전트의 답변 품질이 올라갑니다.
+              <strong># 답변 원칙</strong>, <strong># 출력 형식</strong>, <strong># 톤</strong>처럼
+              섹션을 나누어 작성하면 에이전트가 더 잘 이해합니다.
+            </div>
+          </div>
+
+          <div class="tip-callout">
+            <span class="tip-icon">💡</span>
+            <div>
+              <strong>알고 계셨나요?</strong> — Agent Builder에서는 "Microsoft 공식 문서를 기반으로 Copilot 사용법을 한국어로 안내하는 에이전트를 만들어줘"처럼
+              <strong>자연어로 설명</strong>하면 이름·설명·안내를 자동 생성해 주는 기능도 있습니다.
+              이 실습에서는 각 항목을 <strong>직접 입력하며 구조를 이해</strong>하는 방식으로 진행합니다.
+            </div>
+          </div>
+
+          <h4 style="font-size: 16px; font-weight: 700; color: var(--text); margin: 28px 0 12px; display: flex; align-items: center; gap: 8px;">
+            ⚙️ Configure 탭 — 추가 옵션
+          </h4>
+          <p class="lab-desc" style="margin-bottom: 16px;">
+            구성 탭 하단에는 에이전트의 기능을 확장할 수 있는 <strong>추가 옵션 토글</strong>이 있습니다. 이 실습에서는 기본값을 그대로 사용하지만, 필요에 따라 아래 옵션을 켜거나 끌 수 있습니다.
+          </p>
+
+          <img src="images/step3-knowledge-features.png" alt="Agent Builder 구성 화면 — 지식, 기능, 문서 만들기, 이미지 만들기 토글 설정" class="lab-image" />
+
+          <table class="spec-table">
+            <tr>
+              <th>지식 소스 범위</th>
+              <td>웹 사이트, 파일, 모임, 채팅, 이메일 등을 지식으로 추가할 수 있습니다. 이 실습에서는 공식 웹 사이트 URL만 사용합니다.</td>
+            </tr>
+            <tr>
+              <th>참조 조직도 및 프로필 정보</th>
+              <td>사용자의 조직 정보와 프로필 정보를 답변에 활용할 수 있습니다. 사내 업무 비서형 에이전트에서 유용합니다.</td>
+            </tr>
+            <tr>
+              <th>문서, 차트 및 코드 만들기</th>
+              <td>데이터 분석, 그래프, 수학 수식, 코드 조각, Word·Excel·PowerPoint 파일 생성을 도울 수 있습니다.</td>
+            </tr>
+            <tr>
+              <th>이미지 만들기</th>
+              <td>사용자 프롬프트에 따라 시각 자료나 이미지 아트를 생성할 수 있습니다. FAQ 에이전트에서는 필수는 아닙니다.</td>
+            </tr>
+            <tr>
+              <th>추천 프롬프트</th>
+              <td>사용자가 에이전트를 처음 열었을 때 보여줄 <strong>예시 질문</strong>을 최대 6개까지 설정합니다. 사용자의 첫 대화를 유도하는 데 유용합니다.</td>
+            </tr>
+          </table>
+
+          <div class="tip-callout" style="margin-top: 16px;">
+            <span class="tip-icon">💡</span>
+            <div>
+              <strong>이 실습에서는</strong> — 위 옵션을 별도로 변경하지 않아도 됩니다.
+              FAQ 에이전트는 안내와 웹 지식 소스만으로 충분히 동작합니다.
+              나중에 에이전트를 확장할 때 필요한 옵션을 켜 보세요.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">3</span>
+            지식(Knowledge) 탭 — 웹 소스 등록
+          </h3>
+          <p class="lab-desc">
+            <strong>"지식"</strong> 탭으로 이동해 에이전트가 참조할 웹 사이트를 등록합니다. 아래 4개 Microsoft 공식 사이트를 하나씩 추가하세요.
+          </p>
+
+          <ul class="knowledge-list">
+            <li>
+              <span class="k-icon">📘</span>
+              <div>
+                <span class="copyable" data-copy="adoption.microsoft.com"><strong>adoption.microsoft.com</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button></span><br />
+                <span style="font-size: 13px; color: var(--text-dim);">Copilot 도입·활용 가이드</span>
+              </div>
+            </li>
+            <li>
+              <span class="k-icon">📖</span>
+              <div>
+                <span class="copyable" data-copy="learn.microsoft.com"><strong>learn.microsoft.com</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button></span><br />
+                <span style="font-size: 13px; color: var(--text-dim);">기술 문서·API 레퍼런스</span>
+              </div>
+            </li>
+            <li>
+              <span class="k-icon">🛟</span>
+              <div>
+                <span class="copyable" data-copy="support.microsoft.com"><strong>support.microsoft.com</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button></span><br />
+                <span style="font-size: 13px; color: var(--text-dim);">사용법·문제 해결 가이드</span>
+              </div>
+            </li>
+            <li>
+              <span class="k-icon">📰</span>
+              <div>
+                <span class="copyable" data-copy="techcommunity.microsoft.com/blog"><strong>techcommunity.microsoft.com/blog</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button></span><br />
+                <span style="font-size: 13px; color: var(--text-dim);">최신 업데이트·블로그</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="tip-callout" style="margin-top: 20px;">
+            <span class="tip-icon">💡</span>
+            <div>
+              <strong>추가 설정</strong><br />
+              · <strong>지식 범위 제한</strong>: "등록된 자료를 우선으로 참고"를 켜면 정보 정확도가 높아집니다.<br />
+              · <strong>웹 검색 활성화</strong>: 특정 사이트 외에도 웹 전체에서 최신 정보를 검색합니다.<br />
+              · <strong>조직 맥락</strong>: 조직도를 활용해 사용자 관련 인물·부서 정보를 답변에 활용합니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">4</span>
+            테스트하기
+          </h3>
+          <p class="lab-desc">
+            구성과 지식 설정이 끝났으면, 상단의 <strong>"사용해 보기"</strong> 탭을 클릭해 에이전트를 바로 테스트해 봅니다. 아래 질문들을 입력해 보세요.
+          </p>
+
+          <img src="images/step5-try-agent.png" alt="Copilot Help Buddy 사용해 보기 화면 — 에이전트 이름과 메시지 입력창이 보입니다." class="lab-image" />
+
+          <div class="test-questions">
+            <div class="test-q copyable" data-copy="Outlook에서 회의 요약을 어떻게 만들 수 있나요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 1</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              Outlook에서 회의 요약을 어떻게 만들 수 있나요?
+            </div>
+            <div class="test-q copyable" data-copy="Excel 표를 자동으로 생성하려면 어떤 프롬프트가 좋을까요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 2</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              Excel 표를 자동으로 생성하려면 어떤 프롬프트가 좋을까요?
+            </div>
+            <div class="test-q copyable" data-copy="Copilot에서 PDF 파일을 요약할 수 있나요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 3</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              Copilot에서 PDF 파일을 요약할 수 있나요?
+            </div>
+          </div>
+
+          <div class="tip-callout" style="margin-top: 20px;">
+            <span class="tip-icon">✅</span>
+            <div>
+              <strong>체크포인트</strong> — 답변이 아래 형식을 따르는지 확인하세요.<br />
+              · <strong>✅ 한 줄 요약</strong>이 먼저 나오는지<br />
+              · <strong>📌 상세 설명</strong>이 3~5줄로 정리되는지<br />
+              · <strong>💡 활용 팁</strong>이 실무 예시를 포함하는지<br />
+              · <strong>🔗 참고 출처</strong>에 공식 URL이 포함되는지
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">5</span>
+            추천 프롬프트 설정
+          </h3>
+          <p class="lab-desc">
+            테스트 질문으로 자주 쓰는 항목은 <strong>추천 프롬프트</strong>에 등록해 두면, 사용자가 에이전트를 열었을 때 바로 클릭해서 시작할 수 있습니다. 아래 3개를 Copilot Help Buddy용 시작 질문으로 넣어 보세요.
+          </p>
+
+          <img src="images/step4-recommended-prompts.png" alt="Agent Builder 구성 화면 — 추천 프롬프트 제목과 메시지를 입력하는 영역" class="lab-image" />
+
+          <div class="test-questions">
+            <div class="test-q copyable" data-copy="Copilot에서 회의 내용을 요약하려면 어떤 앱과 기능을 사용하면 되나요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>회의 요약 방법</strong><br />
+              Teams·Outlook 회의 요약 기능 확인
+              <div class="click-to-copy">클릭해서 복사</div>
+            </div>
+            <div class="test-q copyable" data-copy="Word 문서를 Copilot으로 요약하고 실행 항목을 뽑으려면 어떻게 해야 하나요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">📄</div>
+              <strong>문서 요약</strong><br />
+              Word 문서 요약과 액션 아이템 추출
+              <div class="click-to-copy">클릭해서 복사</div>
+            </div>
+            <div class="test-q copyable" data-copy="Microsoft 365 Copilot과 Copilot Chat은 어떤 차이가 있나요?" onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">🤖</div>
+              <strong>Copilot 차이점</strong><br />
+              Copilot Chat과 M365 Copilot 구분
+              <div class="click-to-copy">클릭해서 복사</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">6</span>
+            만들기(Create) & 공유
+          </h3>
+          <p class="lab-desc">
+            테스트가 만족스러우면 오른쪽 상단의 <strong>"만들기"</strong> 버튼을 클릭합니다. 만들기 후 공유 창에서 이 에이전트를 누가 사용할 수 있는지 선택합니다.
+          </p>
+
+          <img src="images/step6-share-options.png" alt="Copilot Help Buddy 공유 옵션 화면 — 조직 내 모든 사용자, 조직의 특정 사용자, 사용자만 중에서 선택할 수 있습니다." class="lab-image" />
+
+          <table class="spec-table">
+            <tr>
+              <th>조직 내 모든 사용자</th>
+              <td>조직 전체가 에이전트를 사용할 수 있게 공유합니다. 공개 범위가 가장 넓으므로 안내·지식 소스·답변 품질을 충분히 확인한 뒤 선택하세요.</td>
+            </tr>
+            <tr>
+              <th>조직의 특정 사용자</th>
+              <td>특정 동료나 팀에만 공유합니다. 파일럿 테스트나 제한된 업무 시나리오에 적합합니다.</td>
+            </tr>
+            <tr>
+              <th>사용자만</th>
+              <td>본인만 사용할 수 있는 기본 옵션입니다. 실습 중에는 이 옵션으로 만든 뒤 충분히 테스트하는 것을 권장합니다.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENT SPEC -->
+    <section id="spec" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">에이전트 스펙</span>
+          <h2>Copilot Help Buddy 전체 구성 요약</h2>
+          <p class="lead">실습에서 만든 에이전트의 전체 사양을 한눈에 정리합니다.</p>
+        </header>
+
+        <div class="lab-block" style="max-width: 820px; margin: 0 auto;">
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td><strong>Copilot Help Buddy</strong></td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>Microsoft 공식 소스를 기반으로 Copilot 사용법, 기능, 활용 팁을 한국어로 친절하게 안내하는 에이전트</td>
+            </tr>
+            <tr>
+              <th>안내 핵심</th>
+              <td>
+                <strong>답변 원칙:</strong> 4개 공식 사이트 근거 우선 · 추측 금지 · 출처 링크 필수<br />
+                <strong>출력 형식:</strong> 한 줄 요약 → 상세 설명 → 활용 팁 → 참고 출처<br />
+                <strong>톤:</strong> 한국어 · 친절 · 전문 용어 풀이
+              </td>
+            </tr>
+            <tr>
+              <th>지식 소스</th>
+              <td>
+                <code>adoption.microsoft.com</code><br />
+                <code>learn.microsoft.com</code><br />
+                <code>support.microsoft.com</code><br />
+                <code>techcommunity.microsoft.com/blog</code>
+              </td>
+            </tr>
+            <tr>
+              <th>테스트 질문</th>
+              <td>
+                · Outlook에서 회의 요약을 어떻게 만들 수 있나요?<br />
+                · Excel 표를 자동으로 생성하려면 어떤 프롬프트가 좋을까요?<br />
+                · Copilot에서 PDF 파일을 요약할 수 있나요?
+              </td>
+            </tr>
+            <tr>
+              <th>필요 권한</th>
+              <td>Copilot Chat에서 Agent Builder를 사용할 수 있는 계정. 실제 사용 가능 여부와 공유 범위는 조직의 라이선스·관리자 정책에 따라 달라질 수 있음</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTENSION IDEAS -->
+    <section id="ideas" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">더 해보기</span>
+          <h2>Agent Builder로 또 어떤 에이전트를 만들 수 있을까요?</h2>
+          <p class="lead">바로 써먹기 좋은 순서로 추천 아이디어를 정리했습니다. 안내만 잘 잡아도 충분히 재미있고 유용한 에이전트를 만들 수 있습니다.</p>
+        </header>
+
+        <div class="idea-grid">
+          <article class="idea-card">
+            <h3><span class="rank-badge">1</span> 쉽게 말해줘 에이전트</h3>
+            <p>기술 개념을 입력하면 경영진 보고용, 일반 직원 설명용, 신입사원 교육용 비유 3가지를 만들어주는 에이전트입니다. 한국인이 일상에서 바로 떠올릴 수 있는 소재로 설명하게 하면 활용도가 높습니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">2</span> ✉️ 이메일 회신 톤 조정기</h3>
+            <p>사내/사외/임원 등 대상에 따라 이메일 회신 톤을 자동으로 맞춰주는 에이전트입니다. 대상별 톤 규칙과 금지 표현을 안내에 넣으면 바로 업무에 쓸 수 있습니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">3</span> 📄 보고서 양식 작성기</h3>
+            <p>회사 보고서 양식(목적/배경/현황/제안)을 따르도록 안내를 잡으면 초안을 빠르게 생성하는 비서가 됩니다. 조직별 템플릿 문서를 지식으로 추가하면 더 정확해집니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">4</span> 🌐 공개 정보 안내 비서</h3>
+            <p>회사 공개 홈페이지를 지식 소스로 추가하면 외부 고객 응대나 제품 문의에 대응하는 에이전트를 만들 수 있습니다. 모르는 내용은 지어내지 않도록 안내에 명시하세요.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">5</span> “세대 통역사” 에이전트</h3>
+            <p>신조어, 줄임말, 밈을 입력하면 뜻과 쓰임새를 알려주는 에이전트입니다. 반대로 “요즘 팀원들 사이에서 유행하는 말 3개”처럼 일반 질문에도 답하게 만들 수 있습니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">6</span> “오늘 점심 뭐 먹지?” 에이전트</h3>
+            <p>위치, 인원수, 예산, 분위기를 입력하면 한식·일식·중식·양식별로 1곳씩 추천합니다. 식당을 지어내지 말고 일반적으로 알려진 곳 중심으로 답하게 안내하세요.</p>
+          </article>
+        </div>
+
+        <div class="tip-callout" style="max-width: 820px; margin: 32px auto 0;">
+          <span class="tip-icon">🚀</span>
+          <div>
+            <strong>더 고급 에이전트를 만들고 싶다면?</strong><br />
+            Agent Builder는 빠른 시작을 위한 도구입니다. SharePoint·Dataverse 연동, Power Automate 워크플로,
+            AI Builder 모델 등 고급 기능이 필요하면 <strong>Copilot Studio</strong>를 사용하세요.
+            이 사이트의 다른 템플릿에서 Copilot Studio 기반 에이전트 예제를 확인할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Microsoft Corporation. MIT License.</div>
+      <nav aria-label="푸터 메뉴">
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/issues" target="_blank" rel="noopener">이슈</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/blob/main/LICENSE" target="_blank" rel="noopener">라이선스</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var nav = document.getElementById("primary-nav");
+      if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("is-open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
+        });
+      }
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+
+    // Copy instructions (large block with dedicated button)
+    function copyInstructions(btn) {
+      var text = document.getElementById("instructions-text").textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.classList.add("copied");
+        btn.innerHTML =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 복사됨!';
+        setTimeout(function () {
+          btn.classList.remove("copied");
+          btn.innerHTML =
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사';
+        }, 2000);
+      });
+    }
+
+    // Generic copy — works with inline buttons and clickable cards
+    function copyText(el) {
+      var copyable = el.closest(".copyable") || el;
+      var text = copyable.getAttribute("data-copy");
+      if (!text) return;
+
+      navigator.clipboard.writeText(text).then(function () {
+        // Inline button style
+        var inlineBtn = copyable.querySelector(".copy-inline");
+        if (inlineBtn) {
+          var original = inlineBtn.textContent;
+          inlineBtn.classList.add("copied");
+          inlineBtn.textContent = "복사됨!";
+          setTimeout(function () {
+            inlineBtn.classList.remove("copied");
+            inlineBtn.textContent = original;
+          }, 1500);
+          return;
+        }
+
+        // Card style (test questions)
+        var hint = copyable.querySelector(".click-to-copy");
+        if (hint) {
+          var origHint = hint.textContent;
+          copyable.classList.add("copied-card");
+          hint.textContent = "복사됨!";
+          setTimeout(function () {
+            copyable.classList.remove("copied-card");
+            hint.textContent = origHint;
+          }, 1500);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
