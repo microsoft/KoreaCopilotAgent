@@ -32,6 +32,19 @@
         { "label": "스킬 파일 다운로드 (SKILL.md)", "fileType": "MD", "url": "templates/skill_today-wisdom/SKILL.md" },
         { "label": "설치 가이드 다운로드", "fileType": "PDF", "url": "templates/%EC%BD%94%ED%8C%8C%EC%9D%BC%EB%9F%BF_%EC%BD%94%EC%9B%8C%ED%81%AC_%EC%8A%A4%ED%82%AC_%EC%84%A4%EC%B9%98_%EA%B0%80%EC%9D%B4%EB%93%9C.pdf" }
       ]
+    },
+    {
+      "id": "deck-design-studio-skill",
+      "title": "Deck Design Studio",
+      "icon": "images/illustrations/deck-design-studio-skill.png",
+      "fallbackEmoji": "🎨",
+      "description": "서로 완전히 다른 20가지 디자인 스타일로 발표 덱을 만드는 Copilot Cowork 스킬입니다. \"design 03으로 만들어줘\"처럼 디자인 번호만 바꾸면 같은 내용도 타이틀부터 본문까지 완전히 다른 룩으로 일관되게 생성됩니다.",
+      "downloads": [
+        { "label": "사용 안내 보기", "fileType": "URL", "url": "templates/skill_deck-design-studio/guide.html" },
+        { "label": "20가지 디자인 샘플 갤러리 보기", "fileType": "URL", "url": "templates/skill_deck-design-studio/gallery.html" },
+        { "label": "스킬 패키지 다운로드 (ZIP)", "fileType": "ZIP", "url": "templates/skill_deck-design-studio/deck-design-studio.zip" },
+        { "label": "스킬 파일 미리보기 (SKILL.md)", "fileType": "MD", "url": "templates/skill_deck-design-studio/SKILL.md" }
+      ]
     }
   ]
 }
