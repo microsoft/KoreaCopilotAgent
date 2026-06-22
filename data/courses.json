@@ -42,6 +42,19 @@
       "downloads": [
         { "label": "인프런 강의 페이지 (무료 수강)", "fileType": "URL", "url": "https://www.inflearn.com/course/hr-%EC%8B%A4%EB%AC%B4-%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-m365?cid=338493" }
       ]
+    },
+    {
+      "id": "easycopilotlab2-cobot",
+      "title": "코봇 키우기 — Copilot Studio 새 에이전트 경험 교재 (EasyCopilotLab 2)",
+      "icon": "images/library/ai/robot.png",
+      "fallbackEmoji": "🤖",
+      "description": "답하는 챗봇을 넘어 ‘일을 끝내는 AI 직원’을 만드는 법을 다루는 무료 온라인 교재입니다. Microsoft Copilot Studio의 새 에이전트·워크플로우 경험을 코딩 없이 익히도록 6부 21장으로 구성했으며, 환경 준비와 지침 작성부터 Skill·지식·기억·도구 연결, 워크플로우 자동화와 트리거, 테스트·평가(Evaluate), 게시·모니터링·가드레일/ALM까지 단계별로 안내합니다. 각 부 도입부의 학습만화와 전체 PDF 다운로드를 제공합니다. (개정 v2.9 · 2026-06)",
+      "downloads": [
+        { "label": "교재 메인 사이트 (목차 전체)", "fileType": "URL", "url": "https://microsoft.github.io/easycopilotlab2/" },
+        { "label": "전체 PDF 내려받기", "fileType": "URL", "url": "https://microsoft.github.io/easycopilotlab2/cobot-book.pdf" },
+        { "label": "1부 — 왜 지금인가 (에이전틱 전환)", "fileType": "URL", "url": "https://microsoft.github.io/easycopilotlab2/part1.html" },
+        { "label": "3부 — 가르친다 (Skill·지식·도구·메모리)", "fileType": "URL", "url": "https://microsoft.github.io/easycopilotlab2/part3.html" }
+      ]
     }
   ]
 }
