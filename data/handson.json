@@ -71,6 +71,19 @@
       "downloads": [
         { "label": "핸즈온 페이지 열기", "fileType": "URL", "url": "templates/faq-agent-builder/" }
       ]
+    },
+    {
+      "id": "copilot-agent-day-seoul",
+      "title": "Copilot & Agent Day Seoul — 실습 랩 가이드",
+      "icon": "images/library/ai/agent.png",
+      "fallbackEmoji": "✨",
+      "description": "2026년 6월 18일 서울에서 열린 Copilot & Agent Day의 6개 핸즈온 랩을 한곳에 모은 실습 가이드입니다. 가상 임원회의(AI Board Room) 에이전트, Copilot Cowork 플러그인·Skill 활용, Copilot Studio New Workflow 뉴스 자동화, MCP 확장 에이전트 아키텍처, 조직 양식 기반 보고서 작성까지 다룹니다. 각 랩의 단계별 가이드와 원본 교안·샘플·솔루션 파일을 내려받아 실습할 수 있습니다.",
+      "downloads": [
+        { "label": "메인 사이트 (6개 랩 전체)", "fileType": "URL", "url": "https://chichoi1991.github.io/Copilot-Day_LabGuide/" },
+        { "label": "Lab A — AI Board Room 에이전트 교안 (DOCX)", "fileType": "URL", "url": "https://chichoi1991.github.io/Copilot-Day_LabGuide/labs/lab-a-boardroom/original/AI%20%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95%20%EC%A7%80%EC%9B%90%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_LAB%20%EB%A9%94%EB%89%B4%EC%96%BC_202604.docx" },
+        { "label": "Lab D — MCP 확장 에이전트 솔루션 (ZIP)", "fileType": "URL", "url": "https://chichoi1991.github.io/Copilot-Day_LabGuide/labs/lab-d-mcp/solution/AgentDayHandsOn_1_0_0_3.zip" },
+        { "label": "GitHub 소스 저장소", "fileType": "URL", "url": "https://github.com/chichoi1991/Copilot-Day_LabGuide" }
+      ]
     }
   ]
 }
