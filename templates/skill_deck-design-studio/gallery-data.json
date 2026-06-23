@@ -1,0 +1,184 @@
+{
+  "items": [
+    {
+      "num": "01",
+      "slug": "dark-keynote",
+      "name": "Dark Keynote",
+      "family": "다크",
+      "mood": "시네마틱, 절제, 프리미엄 키노트.",
+      "img": "samples/design-01-dark-keynote.png",
+      "md": "designs/design-01-dark-keynote.md"
+    },
+    {
+      "num": "02",
+      "slug": "carbon-grid",
+      "name": "Carbon Grid",
+      "family": "다크",
+      "mood": "엔지니어드, 데이터, 시스템.",
+      "img": "samples/design-02-carbon-grid.png",
+      "md": "designs/design-02-carbon-grid.md"
+    },
+    {
+      "num": "03",
+      "slug": "glass-panels",
+      "name": "Glass Panels",
+      "family": "다크",
+      "mood": "프리미엄, 모던, 반투명 깊이.",
+      "img": "samples/design-03-glass-panels.png",
+      "md": "designs/design-03-glass-panels.md"
+    },
+    {
+      "num": "04",
+      "slug": "aurora-gradient",
+      "name": "Aurora Gradient",
+      "family": "다크",
+      "mood": "대기감, 미래, 비전.",
+      "img": "samples/design-04-aurora-gradient.png",
+      "md": "designs/design-04-aurora-gradient.md"
+    },
+    {
+      "num": "05",
+      "slug": "particle-constellation",
+      "name": "Particle Constellation",
+      "family": "다크",
+      "mood": "네트워크, 데이터, 연결.",
+      "img": "samples/design-05-particle-constellation.png",
+      "md": "designs/design-05-particle-constellation.md"
+    },
+    {
+      "num": "06",
+      "slug": "teal-systems",
+      "name": "Teal Systems",
+      "family": "라이트",
+      "mood": "클린, 청록, 프로세스/시스템.",
+      "img": "samples/design-06-teal-systems.png",
+      "md": "designs/design-06-teal-systems.md"
+    },
+    {
+      "num": "07",
+      "slug": "neon-streams",
+      "name": "Neon Streams",
+      "family": "다크",
+      "mood": "하이에너지, 미래 테크.",
+      "img": "samples/design-07-neon-streams.png",
+      "md": "designs/design-07-neon-streams.md"
+    },
+    {
+      "num": "08",
+      "slug": "rose-quartz",
+      "name": "Rose Quartz",
+      "family": "라이트",
+      "mood": "부드럽고 예쁜, 은은한 로즈-바이올렛, 프리미엄.",
+      "img": "samples/design-08-rose-quartz.png",
+      "md": "designs/design-08-rose-quartz.md"
+    },
+    {
+      "num": "09",
+      "slug": "orbit-rings",
+      "name": "Orbit Rings",
+      "family": "다크",
+      "mood": "비전, 궤도, 시스템 전경.",
+      "img": "samples/design-09-orbit-rings.png",
+      "md": "designs/design-09-orbit-rings.md"
+    },
+    {
+      "num": "10",
+      "slug": "graphite-microsoft",
+      "name": "Graphite (Microsoft)",
+      "family": "라이트",
+      "mood": "Microsoft 뉴트럴, 그래파이트, 절제된 전문성.",
+      "img": "samples/design-10-graphite-microsoft.png",
+      "md": "designs/design-10-graphite-microsoft.md"
+    },
+    {
+      "num": "11",
+      "slug": "fluent-2",
+      "name": "Fluent 2 (Microsoft)",
+      "family": "라이트",
+      "mood": "클린, 레이어드, 엔터프라이즈 신뢰.",
+      "img": "samples/design-11-fluent-2.png",
+      "md": "designs/design-11-fluent-2.md"
+    },
+    {
+      "num": "12",
+      "slug": "spectrum-mesh",
+      "name": "Spectrum Mesh",
+      "family": "라이트",
+      "mood": "프레시, 모던 SaaS (표지 이리데센스 호응).",
+      "img": "samples/design-12-spectrum-mesh.png",
+      "md": "designs/design-12-spectrum-mesh.md"
+    },
+    {
+      "num": "13",
+      "slug": "data-dashboard",
+      "name": "Data Dashboard",
+      "family": "라이트",
+      "mood": "분석적, 엔지니어링, KPI.",
+      "img": "samples/design-13-data-dashboard.png",
+      "md": "designs/design-13-data-dashboard.md"
+    },
+    {
+      "num": "14",
+      "slug": "swiss-tech",
+      "name": "Swiss Tech",
+      "family": "라이트",
+      "mood": "정밀, 에디토리얼, 절제.",
+      "img": "samples/design-14-swiss-tech.png",
+      "md": "designs/design-14-swiss-tech.md"
+    },
+    {
+      "num": "15",
+      "slug": "mono-hue-blue",
+      "name": "Mono-hue Blue",
+      "family": "라이트",
+      "mood": "규율, 단일 색, 위계.",
+      "img": "samples/design-15-mono-hue-blue.png",
+      "md": "designs/design-15-mono-hue-blue.md"
+    },
+    {
+      "num": "16",
+      "slug": "executive-minimal",
+      "name": "Executive Minimal",
+      "family": "라이트",
+      "mood": "임원, 키노트, 절제된 권위.",
+      "img": "samples/design-16-executive-minimal.png",
+      "md": "designs/design-16-executive-minimal.md"
+    },
+    {
+      "num": "17",
+      "slug": "isometric-blocks",
+      "name": "Isometric Blocks",
+      "family": "라이트",
+      "mood": "모던 SaaS, 입체, 제품.",
+      "img": "samples/design-17-isometric-blocks.png",
+      "md": "designs/design-17-isometric-blocks.md"
+    },
+    {
+      "num": "18",
+      "slug": "split-feature",
+      "name": "Split-Feature",
+      "family": "라이트",
+      "mood": "강한 대비, 포커스, 모던.",
+      "img": "samples/design-18-split-feature.png",
+      "md": "designs/design-18-split-feature.md"
+    },
+    {
+      "num": "19",
+      "slug": "gradient-duotone",
+      "name": "Gradient Duotone",
+      "family": "라이트",
+      "mood": "볼드, 모던, 임팩트.",
+      "img": "samples/design-19-gradient-duotone.png",
+      "md": "designs/design-19-gradient-duotone.md"
+    },
+    {
+      "num": "20",
+      "slug": "editorial-tech",
+      "name": "Editorial Tech",
+      "family": "라이트",
+      "mood": "에디토리얼, 권위, 테크 매거진(세리프 아님).",
+      "img": "samples/design-20-editorial-tech.png",
+      "md": "designs/design-20-editorial-tech.md"
+    }
+  ]
+}
