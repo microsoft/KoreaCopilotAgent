@@ -1,13 +1,13 @@
 ---
 name: design-05-particle-constellation
-description: "발표 덱 디자인 #05 — Particle Constellation. 타이틀(표지)부터 본문까지 이 스타일의 팔레트·폰트·모티프·레이아웃을 정확히 따른다. 사용자가 'design 05으로', 'Particle Constellation로'처럼 지정하면 이 디자인으로 덱을 만든다. 다크 — 어두운 배경 기반."
+description: "발표 덱 디자인 #05: Particle Constellation. 타이틀(표지)부터 본문까지 이 스타일의 팔레트·폰트·모티프·레이아웃을 정확히 따른다. 사용자가 'design 05으로', 'Particle Constellation로'처럼 지정하면 이 디자인으로 덱을 만든다. 어두운 배경 기반의 다크 스타일."
 ---
 
-# 발표 덱 디자인 #05 — Particle Constellation
+# 발표 덱 디자인 #05: Particle Constellation
 
 한 덱 전체를 이 스타일로 만듭니다 (타이틀 + 본문 모두).
 
-## 타이틀(표지) 슬라이드 — 이 디자인 스타일로
+## 타이틀(표지) 슬라이드: 이 디자인 스타일로
 
 이 스킬에는 고정 표지가 없습니다. **타이틀(표지) 슬라이드도 본문과 같은 디자인 스타일로** 만듭니다.
 
@@ -20,7 +20,7 @@ description: "발표 덱 디자인 #05 — Particle Constellation. 타이틀(표
 
 -----
 
-## 본문 디자인 — Particle Constellation (다크)
+## 본문 디자인: Particle Constellation (다크)
 
 **Mood:** 네트워크, 데이터, 연결.
 
@@ -30,7 +30,7 @@ description: "발표 덱 디자인 #05 — Particle Constellation. 타이틀(표
 
 **Background:** `0A1230` (표지의 파티클 웨이브 호응).
 
-**Motif (반복 요소):** **연결된 노드-도트 네트워크** — 점 + 얇은 연결선, 핵심 노드는 cyan으로 점등.
+**Motif (반복 요소):** **연결된 노드-도트 네트워크**: 점 + 얇은 연결선, 핵심 노드는 cyan으로 점등.
 
 **Layout:** 별자리처럼 퍼진 노드, 콘텐츠는 노드에 정착.
 
@@ -51,14 +51,14 @@ slide.addText("Everything connects", { x:6.6, y:2.6, w:6, h:1, fontFace:"Arial",
 
 ## 모든 스타일 공통 규칙 (절대 불변)
 
-core pptx 스킬에서 유래 — 어떤 디자인에서도 깨지지 않습니다.
+core pptx 스킬에서 가져온 규칙이라 어떤 디자인에서도 깨지지 않습니다.
 
-- **hex에 `#` 금지** — `"2E6BE6"` (O), `"#2E6BE6"` (X, .pptx 손상).
+- **hex에 `#` 금지.** `"2E6BE6"` (O), `"#2E6BE6"` (X, .pptx 손상).
 - **제목 밑줄 악센트선 금지. 장식용 컬러바·엣지 스트라이프 금지.** (AI 생성물의 #1 신호) 카드는
   fill 틴트나 shadow로 구분. "측면 색 블록"이 필요하면 얇은 띠가 아니라 **풀하이트 실제 레이아웃 블록**으로.
-- **한 색이 지배(60–70%)** + 보조 1–2 + 악센트 1. 균등 배분 금지. 둘째 악센트 색 추가 금지.
+- **한 색이 지배(60~70%)** + 보조 1~2 + 악센트 1. 균등 배분 금지. 둘째 악센트 색 추가 금지.
 - **모든 슬라이드에 시각 요소** 하나 이상. 제목+불릿만 있는 슬라이드 금지.
-- **본문 좌측 정렬;** 제목만 가운데(스타일이 명시하지 않는 한). 제목 36–44 / 헤더 20–24 / 본문 14–16pt.
+- **본문 좌측 정렬;** 제목만 가운데(스타일이 명시하지 않는 한). 제목 36~44 / 헤더 20~24 / 본문 14~16pt.
 - **여백 최소 0.5"**, 간격은 0.3"/0.5"로 일관되게.
 - **Aptos 기본값 금지.** 한글은 사용자가 지정한 폰트, 없으면 **맑은 고딕(Malgun Gothic)**. 라틴은 QA-safe 폰트만
   (Arial, Calibri, Cambria, Times New Roman, Courier New, Bookman Old Style, Century Schoolbook).
