@@ -8,7 +8,7 @@
       "description": "고객사 Copilot 도입 초기에 사용자들이 반복적으로 묻는 질문(라이선스, 보안, 데이터, 프롬프트 등)을 Copilot 안에서 즉시 셀프서비스로 해소합니다.",
       "downloads": [
         { "label": "Agent Builder로 구성하는 가이드 다운로드", "fileType": "DOCX", "url": "templates/copilot-faq-agent/Copilot%20FAQ%20Agent%20%ea%b5%ac%ec%84%b1%20%ea%b0%80%ec%9d%b4%eb%93%9c%20(Agent%20Builder).docx" },
-        { "label": "템플릿 파일 다운로드", "fileType": "ZIP", "url": "templates/copilot-faq-agent/CopilotFAQAgent_1_0_0_0_managed.zip" },
+        { "label": "템플릿 파일 다운로드", "fileType": "ZIP", "url": "templates/copilot-faq-agent/CopilotFAQAgent_1_0_0_1_managed.zip" },
         { "label": "사용 가이드 다운로드 (Copilot Studio)", "fileType": "PDF", "url": "templates/copilot-faq-agent/Copilot%20FAQ%20Agent%20%EC%84%A4%EC%B9%98%20%EB%B0%8F%20%EB%B0%B0%ED%8F%AC%20%EA%B0%80%EC%9D%B4%EB%93%9C.pdf" }
       ],
       "developer": "이수민"
