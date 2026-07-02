@@ -12,6 +12,19 @@
         { "label": "15일차 — 게시글 작성", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot%20daily%20prompt/daily-prompt-15/" },
         { "label": "30일차 — 회의 안건 작성", "fileType": "URL", "url": "https://microsoft.github.io/mwkorea/copilot%20daily%20prompt/daily-prompt-30/" }
       ]
+    },
+    {
+      "id": "pnp-copilot-prompts-samples",
+      "title": "PnP Copilot 프롬프트 샘플 모음",
+      "icon": "images/library/knowledge/book.png",
+      "fallbackEmoji": "📚",
+      "description": "Microsoft 365 Copilot·GitHub Copilot·Microsoft Copilot에서 바로 활용할 수 있는 프롬프트 샘플을 모아둔 PnP(Microsoft 365 & Power Platform 커뮤니티) 공식 오픈소스 저장소입니다. 이메일 요약, 회의록 작성, 코드 리뷰, 파워포인트 생성 등 실무 시나리오별로 분류된 150개 이상의 샘플을 폴더별로 제공하며, 각 샘플은 사용 방법이 담긴 readme와 메타데이터를 포함합니다. 커뮤니티 기여를 통해 꾸준히 업데이트되는 살아있는 프롬프트 라이브러리입니다.",
+      "downloads": [
+        { "label": "저장소 메인 (GitHub)", "fileType": "URL", "url": "https://github.com/pnp/copilot-prompts" },
+        { "label": "프롬프트 샘플 전체 목록", "fileType": "URL", "url": "https://github.com/pnp/copilot-prompts/tree/main/samples/prompts" },
+        { "label": "예시 — 이메일 요약 프롬프트", "fileType": "URL", "url": "https://github.com/pnp/copilot-prompts/tree/main/samples/prompts/m365-summarise-email" },
+        { "label": "예시 — 회의록 생성 프롬프트", "fileType": "URL", "url": "https://github.com/pnp/copilot-prompts/tree/main/samples/prompts/m365-meeting-minutes-generator" }
+      ]
     }
   ]
 }
