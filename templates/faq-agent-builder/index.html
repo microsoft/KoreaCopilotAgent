@@ -401,6 +401,34 @@
       font-size: 18px;
       margin-bottom: 8px;
     }
+    /* Recommended-prompt cards with 제목 + 내용 copy rows */
+    .prompt-card { display: flex; flex-direction: column; gap: 10px; }
+    .prompt-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .prompt-row .prompt-label {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--bg-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      margin-top: 1px;
+    }
+    .prompt-row .prompt-value {
+      flex: 1 1 auto;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-soft);
+    }
+    .prompt-row .copy-inline { flex: 0 0 auto; margin-left: 0; }
 
     /* Idea cards */
     .idea-grid {
@@ -991,29 +1019,50 @@
             추천 프롬프트 설정
           </h3>
           <p class="lab-desc">
-            테스트 질문으로 자주 쓰는 항목은 <strong>추천 프롬프트</strong>에 등록해 두면, 사용자가 에이전트를 열었을 때 바로 클릭해서 시작할 수 있습니다. 아래 3개를 Copilot Help Buddy용 시작 질문으로 넣어 보세요.
+            테스트 질문으로 자주 쓰는 항목은 <strong>추천 프롬프트</strong>에 등록해 두면, 사용자가 에이전트를 열었을 때 바로 클릭해서 시작할 수 있습니다. 추천 프롬프트는 <strong>제목</strong>과 <strong>내용</strong> 두 칸으로 나뉘어 있으니, 아래 카드에서 각각의 <strong>복사</strong> 버튼을 눌러 Agent Builder의 제목·내용 칸에 붙여 넣으세요.
           </p>
 
           <img src="images/step4-recommended-prompts.png" alt="Agent Builder 구성 화면 — 추천 프롬프트 제목과 메시지를 입력하는 영역" class="lab-image" />
 
           <div class="test-questions">
-            <div class="test-q copyable" data-copy="Copilot에서 회의 내용을 요약하려면 어떤 앱과 기능을 사용하면 되나요?" onclick="copyText(this)" style="cursor: pointer;">
+            <div class="test-q prompt-card">
               <div class="q-icon">💬</div>
-              <strong>회의 요약 방법</strong><br />
-              Teams·Outlook 회의 요약 기능 확인
-              <div class="click-to-copy">클릭해서 복사</div>
+              <div class="prompt-row copyable" data-copy="회의 요약하기">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">회의 요약하기</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="방금 끝난 Teams 회의를 요약하고 결정 사항과 담당자별 할 일을 정리하려면 어떻게 해야 하나요?">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">방금 끝난 Teams 회의를 요약하고 결정 사항과 담당자별 할 일을 정리하려면 어떻게 해야 하나요?</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
             </div>
-            <div class="test-q copyable" data-copy="Word 문서를 Copilot으로 요약하고 실행 항목을 뽑으려면 어떻게 해야 하나요?" onclick="copyText(this)" style="cursor: pointer;">
+            <div class="test-q prompt-card">
+              <div class="q-icon">✉️</div>
+              <div class="prompt-row copyable" data-copy="메일 답장 초안">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">메일 답장 초안</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="Outlook에서 받은 메일 스레드를 요약하고, 정중한 답장 초안을 작성하는 방법을 알려 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">Outlook에서 받은 메일 스레드를 요약하고, 정중한 답장 초안을 작성하는 방법을 알려 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
               <div class="q-icon">📄</div>
-              <strong>문서 요약</strong><br />
-              Word 문서 요약과 액션 아이템 추출
-              <div class="click-to-copy">클릭해서 복사</div>
-            </div>
-            <div class="test-q copyable" data-copy="Microsoft 365 Copilot과 Copilot Chat은 어떤 차이가 있나요?" onclick="copyText(this)" style="cursor: pointer;">
-              <div class="q-icon">🤖</div>
-              <strong>Copilot 차이점</strong><br />
-              Copilot Chat과 M365 Copilot 구분
-              <div class="click-to-copy">클릭해서 복사</div>
+              <div class="prompt-row copyable" data-copy="문서 핵심 요약">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">문서 핵심 요약</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="긴 Word 보고서를 세 줄로 요약하고 실행 항목을 뽑으려면 어떤 프롬프트를 쓰면 좋나요?">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">긴 Word 보고서를 세 줄로 요약하고 실행 항목을 뽑으려면 어떤 프롬프트를 쓰면 좋나요?</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
             </div>
           </div>
         </div>
