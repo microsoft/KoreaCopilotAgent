@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI 초안의 어색함을 걷어내는 한국어 교열 에이전트. Agent Builder로 국립국어원 규범 기반 교열 도우미를 코딩 없이 직접 만드는 실습 가이드." />
+  <meta name="theme-color" content="#fafbfd" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="../../images/favicon-256.png" />
+
+  <title>한국어 교열 에이전트 만들기 실습 — M365 Agent Templates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    /* ===== Sub-page specific styles ===== */
+    .subpage-hero {
+      padding: 48px 0 56px;
+      background:
+        radial-gradient(900px 480px at 80% 0%, rgba(124, 58, 237, 0.10), transparent 60%),
+        radial-gradient(700px 360px at 5% 30%, rgba(37, 99, 255, 0.08), transparent 60%),
+        linear-gradient(180deg, #f6f7fc 0%, #fafbfd 100%);
+    }
+    .subpage-hero .hero-grid {
+      display: block;
+      max-width: 820px;
+    }
+    .subpage-hero h1 {
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .subpage-hero .lead {
+      font-size: 17px;
+      color: var(--text-dim);
+      margin: 0 0 28px;
+      max-width: 56ch;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 18px;
+    }
+    .hero-meta code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 2px 8px;
+      background: #eef0f8;
+      border-radius: 6px;
+      color: var(--text-soft);
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      transition: color 0.15s ease;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Sections */
+    .section {
+      padding: 72px 0;
+    }
+    .section-alt {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .section-head .eyebrow { margin-bottom: 16px; }
+    .section-head h2 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-head .lead {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* Requirements note */
+    .requirements-note {
+      margin-top: 36px;
+      padding: 18px 22px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 13.5px;
+      color: var(--text-soft);
+    }
+    .requirements-note strong {
+      color: var(--text);
+      margin-right: 6px;
+    }
+    .requirements-note span.sep {
+      color: var(--muted);
+    }
+
+    /* Pain-point callout in hero */
+    .pain-box {
+      margin: 26px 0 0;
+      padding: 20px 22px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--purple);
+      border-radius: 12px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      max-width: 60ch;
+    }
+    .pain-box strong { color: var(--text); }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .steps li {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-xs);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 14px rgba(124, 58, 237, 0.24);
+    }
+    .steps li h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .steps li p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .steps li p code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--border-strong);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f3eaff 0%, #eaf1ff 100%);
+      border-radius: 14px;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .feature p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+
+    /* Lab instruction block */
+    .lab-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 28px;
+    }
+    .lab-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lab-block h3 .lab-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .lab-block .lab-desc {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-table th {
+      background: var(--surface-2);
+      font-weight: 700;
+      color: var(--text);
+      width: 140px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .spec-table td {
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+    .spec-table tr:last-child th,
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+    .spec-table code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Code / instruction block */
+    .instruction-box {
+      background: #f8f5ff;
+      border: 1px solid #e8dff5;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 16px 0;
+    }
+    .instruction-box .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+    .instruction-box pre {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .instruction-box-blue {
+      background: #f0f4ff;
+      border-color: #dce4f8;
+    }
+    .instruction-box-blue .label {
+      color: var(--blue);
+    }
+
+    /* Before / after demo */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .ba-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      background: #fff;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .ba-card.before { background: #fdf3f3; border-color: #f3d6d6; }
+    .ba-card.after { background: #f1faf4; border-color: #cfead9; }
+    .ba-card .ba-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .ba-card.before .ba-label { color: #c0392b; }
+    .ba-card.after .ba-label { color: #1e8e4e; }
+
+    /* Knowledge source list */
+    .knowledge-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .knowledge-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+    .knowledge-list li .k-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    /* Test question cards */
+    .test-questions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .test-q {
+      padding: 16px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .test-q:hover {
+      border-color: var(--border);
+      background: #fff;
+    }
+    .test-q .q-icon {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    /* Recommended-prompt cards */
+    .prompt-card { display: flex; flex-direction: column; gap: 10px; }
+    .prompt-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .prompt-row .prompt-label {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--bg-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      margin-top: 1px;
+    }
+    .prompt-row .prompt-value {
+      flex: 1 1 auto;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-soft);
+    }
+    .prompt-row .copy-inline { flex: 0 0 auto; margin-left: 0; }
+
+    /* Idea cards */
+    .idea-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .idea-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .idea-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .idea-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .idea-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .prompt-section {
+      max-width: 820px;
+      margin: 28px auto 0;
+    }
+    .prompt-section h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+
+    /* Tip callout */
+    .tip-callout {
+      display: flex;
+      gap: 14px;
+      padding: 18px 22px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+    .tip-callout .tip-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .tip-callout strong {
+      color: var(--text);
+    }
+
+    /* Copy button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      float: right;
+      margin-top: -4px;
+    }
+    .copy-btn:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+    }
+    .copy-btn.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Inline copy button */
+    .copy-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .copy-inline:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+      color: var(--text-soft);
+    }
+    .copy-inline.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Click-to-copy hint for test cards */
+    .click-to-copy {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 4px;
+      transition: color 0.15s ease;
+    }
+    .test-q:hover .click-to-copy {
+      color: var(--blue);
+    }
+    .test-q.copied-card {
+      border-color: #6ee7b7 !important;
+      background: #ecfdf5 !important;
+    }
+    .test-q.copied-card .click-to-copy {
+      color: #059669;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .subpage-hero { padding: 36px 0 48px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .knowledge-list { grid-template-columns: 1fr; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .idea-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 56px 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .lab-block { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../../index.html" aria-label="M365 Agent Templates 홈">
+        <span class="brand-logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-text">Microsoft &nbsp;M365 <em>Agent</em> Templates</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="주 메뉴">
+        <a href="#overview">개요</a>
+        <a href="#lab">실습</a>
+        <a href="#spec">에이전트 스펙</a>
+        <a href="#ideas">확장 아이디어</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="subpage-hero">
+      <div class="container">
+        <a class="back-link" href="../../index.html?filter=handson#templates">← 핸즈온 목록으로 돌아가기</a>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Hands-on Lab · Agent Builder</span>
+            <h1>
+              AI가 써 준 초안,<br />
+              <span class="gradient-text">어딘가 어색하지</span> 않으셨나요?
+            </h1>
+            <p class="lead">
+              생성형 AI가 만든 한국어 초안은 매끄러워 보여도 줄표와 가운뎃점이 지나치고,
+              번역기를 돌린 듯한 표현이 섞이곤 합니다. 그런데 그 글을 공문이나 보도자료,
+              사내 공지처럼 격식을 갖춘 문서로 내보내야 하죠. 이 실습에서는 국립국어원 어문 규범을
+              근거로 그 어색함을 걷어내고 문장을 다듬어 주는 <strong>한국어 교열 에이전트</strong>를
+              Agent Builder로 직접 만들어 봅니다. 코딩도, 도구 설치도 필요 없습니다.
+            </p>
+
+            <div class="pain-box">
+              <strong>이런 분께 맞습니다.</strong><br />
+              공문과 보도자료를 규범에 맞게 써야 하는 공공기관과 대기업의 총무·홍보·대관 담당자,
+              그리고 AI 초안의 어색함을 스스로 잡기 어려웠던 모든 직장인.
+            </div>
+
+            <div class="hero-meta">
+              <span>Microsoft Korea</span>
+              <span aria-hidden="true">·</span>
+              <span>Hands-on Lab</span>
+              <span aria-hidden="true">·</span>
+              <span>소요 시간 약 <code>15~20분</code></span>
+              <span aria-hidden="true">·</span>
+              <span>난이도 <code>초급</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">개요</span>
+          <h2>무엇을 만드나요?</h2>
+          <p class="lead">국립국어원 자료를 지식으로 붙이고 교열 원칙을 안내로 넣으면, 근거를 대며 한국어를 다듬어 주는 나만의 교열 도우미가 완성됩니다.</p>
+        </header>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">📎</div>
+            <h3>규범 문서를 근거로</h3>
+            <p>국립국어원 '쉬운 공공언어 쓰기 길잡이'와 문장부호 규정을 지식으로 붙이면, 에이전트가 추측 대신 규정을 근거로 지적합니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🧹</div>
+            <h3>AI 티부터 걷어내기</h3>
+            <p>줄표와 가운뎃점 남용, 번역투, 빈 상투어처럼 'AI가 쓴 티'가 나는 표현을 찾아 자연스러운 한국어로 바꿉니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🗂️</div>
+            <h3>문서 유형에 맞게</h3>
+            <p>공문, 보도자료, 이메일, 발표 대본 가운데 무엇인지 먼저 파악하고 그 유형의 기준을 얹어 다듬습니다.</p>
+          </article>
+        </div>
+
+        <div class="requirements-note">
+          <strong>사전 요구사항</strong>
+          <span>조직 계정(Entra ID)</span>
+          <span class="sep">·</span>
+          <span>Copilot Chat 접근 권한</span>
+          <span class="sep">·</span>
+          <span>웹 브라우저 (Edge / Chrome 권장) 또는 M365 Copilot 앱</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>에이전트 제작 4단계 흐름</h2>
+          <p class="lead">이름을 정하고, 교열 원칙을 안내로 넣고, 규범 자료를 지식으로 붙인 뒤 테스트하면 끝입니다.</p>
+        </header>
+
+        <ol class="steps">
+          <li>
+            <span class="step-num">1</span>
+            <h3>Agent Builder 열기</h3>
+            <p>Copilot Chat에서 에이전트 만들기로 들어갑니다.</p>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <h3>이름과 안내 넣기</h3>
+            <p>이름과 설명을 적고, 교열 원칙을 담은 <code>안내</code>를 붙여넣습니다.</p>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <h3>규범 자료 연결</h3>
+            <p>국립국어원 자료를 파일 또는 웹 지식으로 추가합니다.</p>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <h3>테스트하고 만들기</h3>
+            <p>어색한 문장을 넣어 교정 결과를 확인한 뒤 저장합니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- HANDS-ON LAB -->
+    <section id="lab" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Hands-on Lab</span>
+          <h2>한국어 교열 도우미 에이전트 만들기</h2>
+          <p class="lead">아래 순서대로 따라 하면 됩니다. 복사 버튼이 있는 값은 그대로 붙여넣으세요.</p>
+        </header>
+
+        <!-- Step 1 -->
+        <div class="lab-block">
+          <h3><span class="lab-step-badge">1</span> Agent Builder 열기</h3>
+          <p class="lab-desc">
+            웹 브라우저에서 Copilot Chat에 접속하거나 M365 Copilot 앱을 엽니다.
+            오른쪽 에이전트 영역에서 <strong>에이전트 만들기</strong>를 선택하면 제작 화면이 열립니다.
+            화면 왼쪽은 대화로 에이전트를 다듬는 곳이고, 오른쪽 <strong>구성(Configure)</strong> 탭에서
+            이름, 안내, 지식을 직접 설정할 수 있습니다. 이 실습에서는 구성 탭을 씁니다.
+          </p>
+          <div class="tip-callout">
+            <span class="tip-icon">💡</span>
+            <div>
+              에이전트 만들기가 보이지 않으면 조직의 라이선스나 관리자 정책 때문일 수 있습니다.
+              관리자에게 Copilot Chat의 Agent Builder 사용 권한을 문의하세요.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="lab-block">
+          <h3><span class="lab-step-badge">2</span> 이름과 설명 정하기</h3>
+          <p class="lab-desc">구성 탭에서 이름과 설명을 아래처럼 입력합니다.</p>
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td>
+                <span class="copyable" data-copy="한국어 교열 도우미"><strong>한국어 교열 도우미</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="이름 복사">복사</button></span>
+              </td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>
+                <span class="copyable" data-copy="국립국어원 어문 규범과 공공언어 원칙에 따라 한국어 문서를 교열하고, 번역투와 AI 티를 걷어내 자연스러운 문장으로 다듬는 도우미">국립국어원 어문 규범과 공공언어 원칙에 따라 한국어 문서를 교열하고, 번역투와 AI 티를 걷어내 자연스러운 문장으로 다듬는 도우미 <button class="copy-inline" onclick="copyText(this)" aria-label="설명 복사">복사</button></span>
+              </td>
+            </tr>
+          </table>
+
+          <div class="instruction-box" style="margin-top: 20px;">
+            <div class="label">안내(Instructions) 전체를 복사해 '안내' 영역에 붙여넣으세요</div>
+            <button class="copy-btn" onclick="copyInstructions(this)" aria-label="안내 복사">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              복사
+            </button>
+            <pre id="instructions-text">당신은 국립국어원 어문 규범과 공공언어 원칙을 숙지한 한국어 교열 도우미입니다. 사용자가 한국어 문서나 문장을 주면 아래 순서로 다듬어 돌려주세요.
+
+# 1단계. 문서 유형부터 파악
+먼저 글의 유형을 판단해 알려 주세요. 공문, 보도자료, 이메일, 발표 대본, 보고서, 발표 자료 문구, 웹 문구 가운데 무엇인지 밝히고 그 유형에 맞는 기준을 적용합니다. 유형이 헷갈리면 고쳐 쓰기 전에 사용자에게 물어보세요.
+
+# 2단계. 근거를 대고 교정
+첨부된 지식(국립국어원 자료)과 아래 항목을 근거로 지적하세요. 추측만으로 단정하지 않습니다.
+- 맞춤법, 띄어쓰기, 표준어, 외래어 표기
+- 주어와 서술어의 호응, 이중피동, 시제, 높임법
+- 번역투: "~에 의해", "~을 가지다", "~에 대한"의 남용, 무생물 주어, 매 문장 주어 반복
+- 쉬운 말: 어려운 한자어나 외국어를 쉬운 우리말로 (예: 제고→높임, 시행→실시)
+- 명사로 끝나는 딱딱한 표현을 동사로 풀고, 한 문장에 여러 절이 얽히면 짧게 나눕니다.
+
+# 3단계. AI 티 걷어내기 (가장 중요)
+AI가 쓴 티가 나는 요소를 찾아 자연스럽게 고칩니다.
+- 줄표(—)와 엔대시(–)는 쓰지 않습니다. 문장 중간에 끼워 넣거나 흐름을 바꿀 때는 쉼표나 괄호를 쓰거나 문장을 나눕니다.
+- 가운뎃점(·)은 규정에 맞는 짧은 낱말 묶음(예: 금·은·동)에만 쓰고, 긴 구를 습관적으로 잇지 않습니다. 나열은 쉼표가 원칙입니다. 애매하면 가운뎃점 대신 쉼표를 택합니다.
+- "핵심적인, 다양한, 그 어느 때보다" 같은 빈 강조어와 상투어는 구체적인 말로 바꿉니다.
+- 문장 끝이 "~습니다"로만 이어지지 않도록 종결을 다양하게 하고, 문장 길이에도 변화를 줍니다.
+
+# 4단계. 논리도 점검
+주장에 근거가 있는지, 접속어(그러나, 따라서)가 실제 논리와 맞는지, 비약이나 앞뒤 모순이 없는지 함께 살핍니다.
+
+# 출력 형식
+1) 문서 유형과 그렇게 본 근거를 한 줄로
+2) 주요 지적: 원문, 문제, 수정안, 근거를 표로 정리
+3) 최종 교정본: 그대로 복사해 쓸 수 있는 전체 문장 (줄표와 가운뎃점 남용 없이)
+4) 다음에 쓸 때 주의할 점 세 가지
+
+한국어로, 친절하되 군더더기 없이 답하세요. 근거가 분명하지 않으면 단정하지 말고 국립국어원 온라인가나다 확인을 권합니다.</pre>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="lab-block">
+          <h3><span class="lab-step-badge">3</span> 규범 자료를 지식으로 연결</h3>
+          <p class="lab-desc">
+            구성 탭의 <strong>지식(Knowledge)</strong>에서 아래 자료를 추가합니다.
+            파일은 내려받아 업로드하고, 누리집은 웹 지식 소스로 붙이면 됩니다.
+            에이전트가 이 자료를 근거로 삼아 더 정확하게 지적합니다.
+          </p>
+          <ul class="knowledge-list">
+            <li>
+              <span class="k-icon" aria-hidden="true">📄</span>
+              <span>국립국어원 '쉬운 공공언어 쓰기 길잡이' (PDF 업로드)</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">📄</span>
+              <span>한글 맞춤법 부록 '문장부호' 규정 (PDF 업로드)</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="kornorms.korean.go.kr"><strong>kornorms.korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 어문 규범 누리집</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="korean.go.kr"><strong>korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 국립국어원 (다듬은 말, 온라인가나다)</span>
+            </li>
+          </ul>
+          <div class="tip-callout">
+            <span class="tip-icon">📚</span>
+            <div>
+              한국어에서 생성형 모델이 어디서 자주 틀리는지 더 파고들고 싶다면,
+              <strong>KLUE</strong>(한국어 이해 평가 벤치마크)나 <strong>GEM 한국어 언어능력 평가</strong> 같은
+              연구 논문 PDF를 지식으로 함께 붙여도 좋습니다. 조사와 높임처럼 모델이 흔히 놓치는 지점을 근거로 삼을 수 있습니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="lab-block">
+          <h3><span class="lab-step-badge">4</span> 어색한 문장으로 테스트</h3>
+          <p class="lab-desc">
+            아래 문장은 AI가 흔히 만드는 어색한 초안입니다. 카드를 눌러 복사한 뒤
+            에이전트에 붙여넣어 보세요. 줄표와 가운뎃점, 번역투, 상투어가 어떻게 정리되는지 확인할 수 있습니다.
+          </p>
+          <div class="test-questions">
+            <div class="test-q copyable" data-copy="금번 시스템 점검에 있어 — 사용자 여러분의 협조를 통해 — 서비스 안정성·효율성·편의성을 제고하고자 하며, 이는 다양한 측면에서 중요한 역할을 할 것으로 기대됩니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon" aria-hidden="true">🏢</div>
+              공문 예시: "금번 시스템 점검에 있어 — 사용자 여러분의 협조를 통해 — 서비스 안정성·효율성·편의성을 제고하고자 하며, 이는 다양한 측면에서 중요한 역할을 할 것으로 기대됩니다."
+              <span class="click-to-copy">클릭하여 복사</span>
+            </div>
+            <div class="test-q copyable" data-copy="본 제품은 혁신적인 기술을 통해 고객에게 다양한 가치를 제공하는 것이 가능하며, 그 어느 때보다 강력한 경험을 선사합니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon" aria-hidden="true">📰</div>
+              보도자료 예시: "본 제품은 혁신적인 기술을 통해 고객에게 다양한 가치를 제공하는 것이 가능하며, 그 어느 때보다 강력한 경험을 선사합니다."
+              <span class="click-to-copy">클릭하여 복사</span>
+            </div>
+            <div class="test-q copyable" data-copy="해당 건에 대하여 검토가 필요할 것으로 사료되며, 관련하여 조속한 회신을 부탁드리는 바입니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon" aria-hidden="true">✉️</div>
+              이메일 예시: "해당 건에 대하여 검토가 필요할 것으로 사료되며, 관련하여 조속한 회신을 부탁드리는 바입니다."
+              <span class="click-to-copy">클릭하여 복사</span>
+            </div>
+          </div>
+
+          <div class="ba-grid">
+            <div class="ba-card before">
+              <div class="ba-label">BEFORE · AI 초안</div>
+              금번 시스템 점검에 있어 — 사용자 여러분의 협조를 통해 — 서비스 안정성·효율성·편의성을 제고하고자 하며, 이는 다양한 측면에서 중요한 역할을 할 것으로 기대됩니다.
+            </div>
+            <div class="ba-card after">
+              <div class="ba-label">AFTER · 교정본</div>
+              이번 시스템 점검에 협조해 주셔서 감사합니다. 점검을 마치면 서비스가 더 안정적으로 운영됩니다.
+            </div>
+          </div>
+          <div class="tip-callout">
+            <span class="tip-icon">🔎</span>
+            <div>
+              교정본에서 무엇이 달라졌는지 물어보세요. 줄표와 가운뎃점을 걷어냈고,
+              "제고", "~에 있어", "다양한 측면" 같은 번역투와 상투어를 쉬운 말로 풀었으며,
+              딱딱한 명사 표현을 동사로 바꿨습니다. 근거는 문장부호 규정과 공공언어 길잡이입니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Starter prompts -->
+        <div class="lab-block">
+          <h3><span class="lab-step-badge">＋</span> 바로 쓰는 프롬프트</h3>
+          <p class="lab-desc">에이전트를 만든 뒤 이렇게 물어보면 됩니다. 값을 복사해 대괄호 부분만 여러분의 문서로 바꾸세요.</p>
+          <div class="prompt-card">
+            <div class="prompt-row copyable" data-copy="다음 공문을 국립국어원 공공언어 기준으로 다듬어 주세요. 줄표와 가운뎃점 남용, 번역투를 특히 신경 써서 고치고, 최종 교정본을 함께 주세요: [문서 붙여넣기]">
+              <span class="prompt-label">공문</span>
+              <span class="prompt-value">다음 공문을 국립국어원 공공언어 기준으로 다듬어 주세요. 줄표와 가운뎃점 남용, 번역투를 특히 신경 써서 고치고, 최종 교정본을 함께 주세요: [문서 붙여넣기]</span>
+              <button class="copy-inline" onclick="copyText(this)" aria-label="프롬프트 복사">복사</button>
+            </div>
+            <div class="prompt-row copyable" data-copy="이 보도자료를 유형에 맞게 검수하고 과장된 홍보 표현과 AI 티를 걷어내 자연스러운 한국어로 바꿔 주세요: [붙여넣기]">
+              <span class="prompt-label">보도자료</span>
+              <span class="prompt-value">이 보도자료를 유형에 맞게 검수하고 과장된 홍보 표현과 AI 티를 걷어내 자연스러운 한국어로 바꿔 주세요: [붙여넣기]</span>
+              <button class="copy-inline" onclick="copyText(this)" aria-label="프롬프트 복사">복사</button>
+            </div>
+            <div class="prompt-row copyable" data-copy="이 이메일을 정중하되 군더더기 없이 다듬고, 높임법과 요청 사항이 분명한지 점검해 주세요: [붙여넣기]">
+              <span class="prompt-label">이메일</span>
+              <span class="prompt-value">이 이메일을 정중하되 군더더기 없이 다듬고, 높임법과 요청 사항이 분명한지 점검해 주세요: [붙여넣기]</span>
+              <button class="copy-inline" onclick="copyText(this)" aria-label="프롬프트 복사">복사</button>
+            </div>
+            <div class="prompt-row copyable" data-copy="이 글에서 AI가 쓴 티가 나는 표현만 골라, 왜 어색한지와 자연스러운 대체안을 표로 정리해 주세요: [붙여넣기]">
+              <span class="prompt-label">AI 티 집중</span>
+              <span class="prompt-value">이 글에서 AI가 쓴 티가 나는 표현만 골라, 왜 어색한지와 자연스러운 대체안을 표로 정리해 주세요: [붙여넣기]</span>
+              <button class="copy-inline" onclick="copyText(this)" aria-label="프롬프트 복사">복사</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPEC -->
+    <section id="spec" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">에이전트 스펙</span>
+          <h2>한국어 교열 도우미 구성 요약</h2>
+          <p class="lead">실습에서 만든 에이전트의 전체 구성을 한눈에 정리합니다.</p>
+        </header>
+
+        <div class="lab-block" style="max-width: 820px; margin: 0 auto;">
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td><strong>한국어 교열 도우미</strong></td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>국립국어원 어문 규범과 공공언어 원칙에 따라 한국어 문서를 교열하고, 번역투와 AI 티를 걷어내 자연스러운 문장으로 다듬는 도우미</td>
+            </tr>
+            <tr>
+              <th>안내 핵심</th>
+              <td>
+                <strong>4단계:</strong> 문서 유형 파악, 규범 근거 교정, AI 티 제거, 논리 점검<br />
+                <strong>출력 형식:</strong> 유형 판정, 지적 표, 최종 교정본, 다음 주의점<br />
+                <strong>원칙:</strong> 줄표와 가운뎃점 남용 금지, 추측 단정 금지, 근거 병기
+              </td>
+            </tr>
+            <tr>
+              <th>지식 소스</th>
+              <td>
+                국립국어원 '쉬운 공공언어 쓰기 길잡이' (PDF)<br />
+                한글 맞춤법 부록 '문장부호' 규정 (PDF)<br />
+                <code>kornorms.korean.go.kr</code><br />
+                <code>korean.go.kr</code>
+              </td>
+            </tr>
+            <tr>
+              <th>테스트 문장</th>
+              <td>
+                공문, 보도자료, 이메일 유형의 어색한 AI 초안 3종<br />
+                (줄표, 가운뎃점, 번역투, 상투어가 섞인 예시)
+              </td>
+            </tr>
+            <tr>
+              <th>필요 권한</th>
+              <td>Copilot Chat에서 Agent Builder를 사용할 수 있는 계정. 실제 사용 가능 여부와 공유 범위는 조직의 라이선스와 관리자 정책에 따라 달라질 수 있음</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTENSION IDEAS -->
+    <section id="ideas" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">더 해보기</span>
+          <h2>같은 방식으로 확장할 수 있는 에이전트</h2>
+          <p class="lead">안내와 지식만 바꾸면 우리 조직에 딱 맞는 교열 도우미로 넓힐 수 있습니다.</p>
+        </header>
+
+        <div class="idea-grid">
+          <article class="idea-card">
+            <h3><span class="rank-badge">1</span> 공문 전용 교열관</h3>
+            <p>우리 기관의 공문 서식과 자주 쓰는 문구를 지식으로 넣으면, 시행문 형식과 공공언어 기준을 함께 점검하는 공문 전담 도우미가 됩니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">2</span> 보도자료 검수기</h3>
+            <p>역피라미드 구조와 인용, 수치 표기 규칙을 안내에 담으면 홍보팀 초안을 빠르게 다듬습니다. 과장된 형용사를 걸러 내도록 지시하세요.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">3</span> 사내 용어 통일 도우미</h3>
+            <p>회사가 정한 표기와 금지어 목록을 지식으로 붙이면, 문서마다 제각각이던 용어와 표기를 하나로 맞춰 줍니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">4</span> 발표 대본 다듬기</h3>
+            <p>소리 내 읽을 때의 호흡과 발음 혼동어를 챙기도록 안내하면, 무대에서 자연스럽게 읽히는 대본으로 고쳐 줍니다.</p>
+          </article>
+        </div>
+
+        <div class="tip-callout" style="max-width: 820px; margin: 32px auto 0;">
+          <span class="tip-icon">🚀</span>
+          <div>
+            <strong>더 강한 교열 파이프라인이 필요하다면?</strong><br />
+            Agent Builder는 빠르게 시작하기 좋은 도구입니다. 문서 자동 수집, 승인 흐름,
+            사내 시스템 연동처럼 더 깊은 자동화가 필요하면 <strong>Copilot Studio</strong>로 확장하세요.
+            이 사이트의 다른 템플릿에서 Copilot Studio 예제를 볼 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Microsoft Corporation. MIT License.</div>
+      <nav aria-label="푸터 메뉴">
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/issues" target="_blank" rel="noopener">이슈</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/blob/main/LICENSE" target="_blank" rel="noopener">라이선스</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var nav = document.getElementById("primary-nav");
+      if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("is-open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
+        });
+      }
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+
+    // Copy instructions (large block with dedicated button)
+    function copyInstructions(btn) {
+      var text = document.getElementById("instructions-text").textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.classList.add("copied");
+        btn.innerHTML =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 복사됨!';
+        setTimeout(function () {
+          btn.classList.remove("copied");
+          btn.innerHTML =
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사';
+        }, 2000);
+      });
+    }
+
+    // Generic copy — works with inline buttons and clickable cards
+    function copyText(el) {
+      var copyable = el.closest(".copyable") || el;
+      var text = copyable.getAttribute("data-copy");
+      if (!text) return;
+
+      navigator.clipboard.writeText(text).then(function () {
+        var inlineBtn = copyable.querySelector(".copy-inline");
+        if (inlineBtn) {
+          var original = inlineBtn.textContent;
+          inlineBtn.classList.add("copied");
+          inlineBtn.textContent = "복사됨!";
+          setTimeout(function () {
+            inlineBtn.classList.remove("copied");
+            inlineBtn.textContent = original;
+          }, 1500);
+          return;
+        }
+
+        var hint = copyable.querySelector(".click-to-copy");
+        if (hint) {
+          var origHint = hint.textContent;
+          copyable.classList.add("copied-card");
+          hint.textContent = "복사됨!";
+          setTimeout(function () {
+            copyable.classList.remove("copied-card");
+            hint.textContent = origHint;
+          }, 1500);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
