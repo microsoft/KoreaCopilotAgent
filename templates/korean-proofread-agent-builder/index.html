@@ -737,7 +737,7 @@
           <span class="sep">·</span>
           <span>Copilot Chat 접근 권한</span>
           <span class="sep">·</span>
-          <span>웹 브라우저 (Edge / Chrome 권장) 또는 M365 Copilot 앱</span>
+          <span>웹 브라우저 (Edge 권장) 또는 M365 Copilot 앱</span>
         </div>
       </div>
     </section>
@@ -865,11 +865,27 @@ AI가 쓴 티가 나는 요소를 찾아 자연스럽게 고칩니다.
         <div class="lab-block">
           <h3><span class="lab-step-badge">3</span> 규범 자료를 지식으로 연결</h3>
           <p class="lab-desc">
-            구성 탭의 <strong>지식(Knowledge)</strong>에서 아래 자료를 추가합니다.
-            파일은 내려받아 업로드하고, 누리집은 웹 지식 소스로 붙이면 됩니다.
-            에이전트가 이 자료를 근거로 삼아 더 정확하게 지적합니다.
+            구성 탭의 <strong>지식(Knowledge)</strong>에 자료를 붙입니다. Agent Builder는 공개 누리집을
+            <strong>최대 4개까지</strong> 웹 지식 소스로 넣을 수 있으니 아래 네 곳을 모두 등록하세요.
+            여기에 규범 자료 PDF와 우리 조직 문서를 파일로 업로드하면, 에이전트가 이 근거로 더 정확하게 지적합니다.
           </p>
           <ul class="knowledge-list">
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="kornorms.korean.go.kr"><strong>kornorms.korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 어문 규범 (맞춤법, 표준어, 외래어, 문장부호)</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="stdict.korean.go.kr"><strong>stdict.korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 표준국어대사전</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="korean.go.kr"><strong>korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 국립국어원 (다듬은 말, 온라인가나다)</span>
+            </li>
+            <li>
+              <span class="k-icon" aria-hidden="true">🌐</span>
+              <span class="copyable" data-copy="opendict.korean.go.kr"><strong>opendict.korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 우리말샘 (오픈 국어사전)</span>
+            </li>
             <li>
               <span class="k-icon" aria-hidden="true">📄</span>
               <span>국립국어원 '쉬운 공공언어 쓰기 길잡이' (PDF 업로드)</span>
@@ -879,12 +895,12 @@ AI가 쓴 티가 나는 요소를 찾아 자연스럽게 고칩니다.
               <span>한글 맞춤법 부록 '문장부호' 규정 (PDF 업로드)</span>
             </li>
             <li>
-              <span class="k-icon" aria-hidden="true">🌐</span>
-              <span class="copyable" data-copy="kornorms.korean.go.kr"><strong>kornorms.korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 어문 규범 누리집</span>
+              <span class="k-icon" aria-hidden="true">📄</span>
+              <span>국립국어원 순화어 자료 또는 '개선이 필요한 공공언어' 사례집 (PDF 업로드)</span>
             </li>
             <li>
-              <span class="k-icon" aria-hidden="true">🌐</span>
-              <span class="copyable" data-copy="korean.go.kr"><strong>korean.go.kr</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="URL 복사">복사</button> 국립국어원 (다듬은 말, 온라인가나다)</span>
+              <span class="k-icon" aria-hidden="true">🏢</span>
+              <span>우리 조직 문서: 사내 표기 지침, 공문 서식, 보도자료 예시, 용어집 (직접 업로드)</span>
             </li>
           </ul>
           <div class="tip-callout">
@@ -918,6 +934,16 @@ AI가 쓴 티가 나는 요소를 찾아 자연스럽게 고칩니다.
             <div class="test-q copyable" data-copy="해당 건에 대하여 검토가 필요할 것으로 사료되며, 관련하여 조속한 회신을 부탁드리는 바입니다." onclick="copyText(this)" style="cursor: pointer;">
               <div class="q-icon" aria-hidden="true">✉️</div>
               이메일 예시: "해당 건에 대하여 검토가 필요할 것으로 사료되며, 관련하여 조속한 회신을 부탁드리는 바입니다."
+              <span class="click-to-copy">클릭하여 복사</span>
+            </div>
+            <div class="test-q copyable" data-copy="여러분, 오늘 저희가 준비한 이 혁신적인 솔루션은 단순한 도구가 아닙니다. 바로 여러분의 업무를 완전히 바꿔 줄 게임 체인저인 것입니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon" aria-hidden="true">🎤</div>
+              발표 대본 예시: "여러분, 오늘 저희가 준비한 이 혁신적인 솔루션은 단순한 도구가 아닙니다. 바로 여러분의 업무를 완전히 바꿔 줄 게임 체인저인 것입니다."
+              <span class="click-to-copy">클릭하여 복사</span>
+            </div>
+            <div class="test-q copyable" data-copy="본 과제의 추진을 통해 다양한 측면에서의 개선이 이루어질 수 있을 것으로 사료되는 바이며, 이에 대한 지속적인 모니터링이 요구되어집니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon" aria-hidden="true">📊</div>
+              보고서 예시: "본 과제의 추진을 통해 다양한 측면에서의 개선이 이루어질 수 있을 것으로 사료되는 바이며, 이에 대한 지속적인 모니터링이 요구되어집니다."
               <span class="click-to-copy">클릭하여 복사</span>
             </div>
           </div>
@@ -1002,10 +1028,8 @@ AI가 쓴 티가 나는 요소를 찾아 자연스럽게 고칩니다.
             <tr>
               <th>지식 소스</th>
               <td>
-                국립국어원 '쉬운 공공언어 쓰기 길잡이' (PDF)<br />
-                한글 맞춤법 부록 '문장부호' 규정 (PDF)<br />
-                <code>kornorms.korean.go.kr</code><br />
-                <code>korean.go.kr</code>
+                <strong>웹 (최대 4개):</strong> <code>kornorms.korean.go.kr</code>, <code>stdict.korean.go.kr</code>, <code>korean.go.kr</code>, <code>opendict.korean.go.kr</code><br />
+                <strong>파일:</strong> '쉬운 공공언어 쓰기 길잡이', 문장부호 규정, 순화어 사례집, 우리 조직 문서(표기 지침, 공문 서식, 용어집)
               </td>
             </tr>
             <tr>
