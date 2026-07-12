@@ -90,7 +90,7 @@
       "title": "한국어 교열 에이전트 만들기 실습 — Agent Builder",
       "icon": "images/illustrations/korean-proofread-agent-builder.png",
       "fallbackEmoji": "✍️",
-      "description": "AI가 써 준 한국어 초안은 매끄러워 보여도 줄표와 가운뎃점이 지나치고 번역투가 섞이곤 합니다. 코딩 없이 Agent Builder로, 국립국어원 어문 규범을 지식으로 붙이고 교열 원칙을 안내로 넣어 그 어색함을 걷어내는 한국어 교열 에이전트를 직접 만드는 실습입니다. 공문·보도자료·이메일 예시로 바로 테스트해 볼 수 있습니다.",
+      "description": "AI가 써 준 한국어 초안은 매끄러워 보여도 줄표와 가운뎃점이 지나치고 번역투가 섞이곤 합니다. 코딩 없이 Agent Builder로, 국립국어원 어문 규범을 지식으로 붙이고 교열 원칙을 안내로 넣어 그 어색함을 걷어내는 한국어 교열 에이전트를 직접 만드는 실습입니다. 공문, 보도자료, 이메일 예시로 바로 테스트해 볼 수 있습니다.",
       "downloads": [
         { "label": "핸즈온 페이지 열기", "fileType": "URL", "url": "templates/korean-proofread-agent-builder/" }
       ]
