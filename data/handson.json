@@ -84,6 +84,19 @@
         { "label": "Lab D — MCP 확장 에이전트 솔루션 (ZIP)", "fileType": "URL", "url": "https://chichoi1991.github.io/Copilot-Day_LabGuide/labs/lab-d-mcp/solution/AgentDayHandsOn_1_0_0_3.zip" },
         { "label": "GitHub 소스 저장소", "fileType": "URL", "url": "https://github.com/chichoi1991/Copilot-Day_LabGuide" }
       ]
+    },
+    {
+      "id": "new-copilot-studio-lab",
+      "title": "New Copilot Studio Lab — Skill·에이전트·Workflow 실습",
+      "icon": "images/library/knowledge/graduation.png",
+      "fallbackEmoji": "🎓",
+      "description": "새로운 Copilot Studio의 Skill·Skill Bundle 개념부터 Outlook 이메일 발송 SKILL.md 작성, 키워드 기반 뉴스레터 초안, Work IQ MCP 주간보고, AI Classify와 Teams 알림 Workflow까지 단계별로 따라 하는 한국어 실습 랩입니다.",
+      "downloads": [
+        { "label": "Lab 사이트 열기", "fileType": "URL", "url": "https://hyjung904.github.io/newcopilotstudiolab/" },
+        { "label": "Outlook 이메일 Skill 만들기", "fileType": "URL", "url": "https://hyjung904.github.io/newcopilotstudiolab/sitecontent/m1-pratice-3" },
+        { "label": "Work IQ MCP 주간보고 에이전트", "fileType": "URL", "url": "https://hyjung904.github.io/newcopilotstudiolab/sitecontent/m3-weekly-report-agent-start.html" },
+        { "label": "이메일 분류·Teams 알림 Workflow", "fileType": "URL", "url": "https://hyjung904.github.io/newcopilotstudiolab/sitecontent/m4-workflow-start.html" }
+      ]
     }
   ]
 }
