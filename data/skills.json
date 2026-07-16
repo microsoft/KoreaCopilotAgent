@@ -45,6 +45,18 @@
         { "label": "스킬 패키지 다운로드 (ZIP)", "fileType": "ZIP", "url": "templates/skill_deck-design-studio/deck-design-studio.zip" },
         { "label": "스킬 파일 미리보기 (SKILL.md)", "fileType": "MD", "url": "templates/skill_deck-design-studio/SKILL.md" }
       ]
+    },
+    {
+      "id": "cat-agent-skills-gallery",
+      "title": "CAT Agent Skills Gallery",
+      "icon": "images/library/ai/agent.png",
+      "fallbackEmoji": "🧩",
+      "description": "Cowork·Copilot Studio·Scout 에이전트에 바로 적용할 수 있는 커뮤니티 스킬과 플러그인, 자동화를 검색하고 내려받는 Microsoft 오픈 소스 갤러리입니다. 플랫폼과 태그로 항목을 필터링하고 상세 지침, SKILL.md 및 번들 파일을 확인할 수 있습니다.",
+      "downloads": [
+        { "label": "Agent Skills 갤러리 열기", "fileType": "URL", "url": "https://microsoft.github.io/cat-agent-skills/" },
+        { "label": "스킬 기여 가이드 보기", "fileType": "URL", "url": "https://github.com/microsoft/cat-agent-skills/blob/main/CONTRIBUTING.md" },
+        { "label": "GitHub 저장소 보기", "fileType": "URL", "url": "https://github.com/microsoft/cat-agent-skills" }
+      ]
     }
   ]
 }
