@@ -1,5 +1,6 @@
 # korean-proofread skill installer
-# Downloads the korean-proofread GitHub Copilot CLI skill into ~/.copilot/skills/korean-proofread
+# Downloads the korean-proofread skill into ~/.copilot/m-skills/korean-proofread (Microsoft Scout).
+# For GitHub Copilot CLI, change 'm-skills' to 'skills'.
 # No GitHub CLI or sign-in required (public repo, raw download).
 
 $ErrorActionPreference = 'Stop'
@@ -8,7 +9,7 @@ $ProgressPreference = 'SilentlyContinue'
 $repo   = 'microsoft/KoreaCopilotAgent'
 $branch = 'main'
 $src    = 'templates/skill_korean-proofread'
-$dest   = Join-Path $HOME '.copilot/skills/korean-proofread'
+$dest   = Join-Path $HOME '.copilot/m-skills/korean-proofread'
 
 $files = @(
   'SKILL.md',
@@ -33,5 +34,5 @@ foreach ($f in $files) {
 }
 
 Write-Host ""
-Write-Host "  설치 완료. Copilot CLI를 재시작한 뒤 /korean-proofread 로 실행하세요." -ForegroundColor Cyan
+Write-Host "  설치 완료. Scout를 재시작한 뒤 /korean-proofread 로 실행하세요." -ForegroundColor Cyan
 Write-Host ""
