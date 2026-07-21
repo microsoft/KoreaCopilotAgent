@@ -2,8 +2,8 @@
 
 회사에서 쓰는 한국어 문서를 두 축으로 다듬는 **Microsoft Scout 스킬**입니다. (GitHub Copilot CLI에서도 같은 포맷으로 동작합니다.)
 
-1. **회사 문서답게 정확하게** — 국립국어원 어문 규범과 공공언어 원칙에 따라 맞춤법, 띄어쓰기, 문법, 주어·서술어 호응, 높임법, 문서 유형별 형식(공문, 보도자료, 이메일, 보고서, 발표 자료, 사내 공지)을 점검합니다.
-2. **AI 티 안 나게** — 줄표·가운뎃점 남용, 번역투, 상투어, 균질한 리듬 같은 'AI가 쓴 티'를 걷어내 자연스러운 한국어로 만듭니다. 논리 허점도 함께 봅니다.
+1. **회사 문서답게 정확하게** — 국립국어원 어문 규범과 공공언어 원칙에 따라 맞춤법, 띄어쓰기, 문법, 주어와 서술어 호응, 높임법, 문서 유형별 형식(공문, 보도자료, 이메일, 보고서, 발표 자료, 사내 공지)을 점검합니다.
+2. **AI 티 안 나게** — 줄표와 가운뎃점 남용, 번역투, 상투어, 균질한 리듬 같은 'AI가 쓴 티'를 걷어내 자연스러운 한국어로 만듭니다. 논리 허점도 함께 봅니다.
 
 > 이 폴더는 선언형 에이전트(Cowork/declarative agent)나 프롬프트가 아니라, Microsoft Scout(및 GitHub Copilot CLI)에서 동작하는 **커스텀 스킬(skill)** 입니다. `SKILL.md`와 `references/`로 구성되며 `/korean-proofread` 로 호출합니다.
 
@@ -14,12 +14,12 @@
 | `SKILL.md` | 스킬 본문(진입점). 검토 흐름, 모드, 가드레일 정의 |
 | `references/quick-rules.md` | 경량 점검용 빠른 규칙과 자체 점검 체크리스트 |
 | `references/public-language.md` | 공공언어 2대 축, 문장 바로쓰기, 문서 유형별 기준 |
-| `references/ai-tell-and-translationese.md` | AI 티·번역투 분류(패턴·예·예외·처방·심각도) |
-| `references/scholarship.md` | 지적의 학술·규범 근거 |
+| `references/ai-tell-and-translationese.md` | AI 티와 번역투 분류(패턴, 예, 예외, 처방, 심각도) |
+| `references/scholarship.md` | 지적의 학술과 규범 근거 |
 
-## 설치 — 두 줄이면 끝
+## 설치 (두 줄이면 끝)
 
-### 1. Scout 채팅창에 붙여넣기 — 스킬을 내려받아 설치합니다
+### 1. Scout 채팅창에 붙여넣기: 스킬을 내려받아 설치합니다
 
 ```powershell
 iex (iwr https://raw.githubusercontent.com/microsoft/KoreaCopilotAgent/main/templates/skill_korean-proofread/install.ps1 -UseBasicParsing).Content
@@ -70,7 +70,7 @@ iex (iwr https://raw.githubusercontent.com/microsoft/KoreaCopilotAgent/main/temp
 - "자연스럽게 고쳐줘"
 - "맞춤법 확인해줘"
 
-`/pptx`, `/docx`, `/malgun-typography`, `/weekly-report` 로 한글 산출물을 만든 뒤 **출고 전 최종 QA 단계**로 함께 쓰면 좋습니다.
+`/pptx`, `/docx`, `/malgun-typography`, `/weekly-report`로 한글 산출물을 만든 뒤 **출고 전 최종 QA 단계**로 함께 쓰면 좋습니다.
 
 ## 제외
 
