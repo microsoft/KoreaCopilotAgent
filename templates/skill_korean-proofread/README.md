@@ -1,11 +1,11 @@
 # korean-proofread (한국어 교열 스킬)
 
-회사에서 쓰는 한국어 문서를 두 축으로 다듬는 Copilot CLI / Microsoft Scout **스킬**입니다.
+회사에서 쓰는 한국어 문서를 두 축으로 다듬는 **GitHub Copilot CLI 스킬**입니다.
 
 1. **회사 문서답게 정확하게** — 국립국어원 어문 규범과 공공언어 원칙에 따라 맞춤법, 띄어쓰기, 문법, 주어·서술어 호응, 높임법, 문서 유형별 형식(공문, 보도자료, 이메일, 보고서, 발표 자료, 사내 공지)을 점검합니다.
 2. **AI 티 안 나게** — 줄표·가운뎃점 남용, 번역투, 상투어, 균질한 리듬 같은 'AI가 쓴 티'를 걷어내 자연스러운 한국어로 만듭니다. 논리 허점도 함께 봅니다.
 
-> 이 폴더는 선언형 에이전트(Cowork/declarative agent)나 프롬프트가 아니라, Copilot CLI / Microsoft Scout에서 동작하는 **스킬(skill)** 입니다.
+> 이 폴더는 선언형 에이전트(Cowork/declarative agent)나 프롬프트가 아니라, GitHub Copilot CLI에서 동작하는 **커스텀 스킬(skill)** 입니다. `SKILL.md`와 `references/`로 구성되며 `/korean-proofread` 로 호출합니다.
 
 ## 구성
 
@@ -19,10 +19,10 @@
 
 ## 설치
 
-Copilot CLI / Microsoft Scout의 스킬 폴더에 이 디렉터리를 통째로 복사합니다.
+GitHub Copilot CLI의 스킬 폴더에 이 디렉터리를 통째로 복사합니다.
 
 ```
-~/.copilot/m-skills/korean-proofread/
+~/.copilot/skills/korean-proofread/
 ├── SKILL.md
 └── references/
     ├── quick-rules.md
