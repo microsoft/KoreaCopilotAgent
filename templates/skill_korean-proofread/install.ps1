@@ -1,0 +1,37 @@
+# korean-proofread skill installer
+# Downloads the korean-proofread GitHub Copilot CLI skill into ~/.copilot/skills/korean-proofread
+# No GitHub CLI or sign-in required (public repo, raw download).
+
+$ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+
+$repo   = 'microsoft/KoreaCopilotAgent'
+$branch = 'main'
+$src    = 'templates/skill_korean-proofread'
+$dest   = Join-Path $HOME '.copilot/skills/korean-proofread'
+
+$files = @(
+  'SKILL.md',
+  'references/quick-rules.md',
+  'references/public-language.md',
+  'references/ai-tell-and-translationese.md',
+  'references/scholarship.md'
+)
+
+Write-Host ""
+Write-Host "  korean-proofread 스킬 설치" -ForegroundColor Cyan
+Write-Host "  -> $dest" -ForegroundColor DarkGray
+Write-Host ""
+
+foreach ($f in $files) {
+  $url    = "https://raw.githubusercontent.com/$repo/$branch/$src/$f"
+  $target = Join-Path $dest $f
+  $dir    = Split-Path $target -Parent
+  if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+  Invoke-WebRequest -Uri $url -OutFile $target -UseBasicParsing
+  Write-Host "  + $f" -ForegroundColor Green
+}
+
+Write-Host ""
+Write-Host "  설치 완료. Copilot CLI를 재시작한 뒤 /korean-proofread 로 실행하세요." -ForegroundColor Cyan
+Write-Host ""
