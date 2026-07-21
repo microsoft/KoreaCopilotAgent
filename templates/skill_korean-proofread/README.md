@@ -17,9 +17,35 @@
 | `references/ai-tell-and-translationese.md` | AI 티·번역투 분류(패턴·예·예외·처방·심각도) |
 | `references/scholarship.md` | 지적의 학술·규범 근거 |
 
-## 설치
+## 설치 — 두 줄이면 끝
 
-GitHub Copilot CLI의 스킬 폴더에 이 디렉터리를 통째로 복사합니다.
+### 1. 터미널(PowerShell)에 붙여넣기 — 스킬을 내려받아 설치합니다
+
+```powershell
+iex (iwr https://raw.githubusercontent.com/microsoft/KoreaCopilotAgent/main/templates/skill_korean-proofread/install.ps1 -UseBasicParsing).Content
+```
+
+`~/.copilot/skills/korean-proofread/` 에 스킬 파일이 설치됩니다. GitHub CLI나 로그인은 필요 없습니다(공개 레포에서 바로 내려받음).
+
+### 2. Copilot CLI를 재시작한 뒤 실행
+
+```
+/korean-proofread
+```
+
+> **macOS / Linux (bash)** 를 쓴다면:
+> ```bash
+> mkdir -p ~/.copilot/skills/korean-proofread/references
+> base="https://raw.githubusercontent.com/microsoft/KoreaCopilotAgent/main/templates/skill_korean-proofread"
+> curl -fsSL "$base/SKILL.md" -o ~/.copilot/skills/korean-proofread/SKILL.md
+> for f in quick-rules public-language ai-tell-and-translationese scholarship; do \
+>   curl -fsSL "$base/references/$f.md" -o ~/.copilot/skills/korean-proofread/references/$f.md; done
+> ```
+
+<details>
+<summary>수동 설치 (직접 복사)</summary>
+
+이 폴더를 통째로 아래 위치에 넣어도 됩니다.
 
 ```
 ~/.copilot/skills/korean-proofread/
@@ -32,6 +58,7 @@ GitHub Copilot CLI의 스킬 폴더에 이 디렉터리를 통째로 복사합�
 ```
 
 복사 후 재시작하면 `/korean-proofread` 로 호출할 수 있습니다.
+</details>
 
 ## 트리거 예시
 
