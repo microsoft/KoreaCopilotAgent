@@ -64,6 +64,19 @@
         { "label": "AI Learning Advisor 살펴보기", "fileType": "URL", "url": "https://github.com/microsoft/m365-agent-templates/tree/main/AI%20Learning%20Advisor#ai-learning-advisor-agent" },
         { "label": "GitHub 리포지토리", "fileType": "URL", "url": "https://github.com/microsoft/m365-agent-templates" }
       ]
+    },
+    {
+      "id": "ai-agent-runbooks",
+      "title": "Microsoft AI Agent Runbooks",
+      "icon": "images/library/ai/agent.png",
+      "fallbackEmoji": "🤖",
+      "description": "Microsoft 기술로 프로덕션급 AI 에이전트를 설계하고 배포할 때 활용하는 오픈 커뮤니티 런북 허브입니다. Copilot Studio, Azure AI Foundry, Microsoft 365 Copilot 기반의 단계별 구현 가이드, 실전 시나리오, 검증된 기술 패턴과 참고 자료를 제공합니다.",
+      "downloads": [
+        { "label": "AI Agent Runbooks 열기", "fileType": "URL", "url": "https://github.com/microsoft/ai-agent-runbooks" },
+        { "label": "시작 가이드 살펴보기", "fileType": "URL", "url": "https://github.com/microsoft/ai-agent-runbooks/tree/main/00-overview" },
+        { "label": "에이전트 시나리오 살펴보기", "fileType": "URL", "url": "https://github.com/microsoft/ai-agent-runbooks/tree/main/01-scenarios" },
+        { "label": "기술 패턴 살펴보기", "fileType": "URL", "url": "https://github.com/microsoft/ai-agent-runbooks/tree/main/02-patterns" }
+      ]
     }
   ]
 }
