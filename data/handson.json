@@ -67,11 +67,12 @@
       "title": "Agent Builder 실습",
       "icon": "images/illustrations/copilot-faq-agent.png",
       "fallbackEmoji": "🧩",
-      "description": "코딩 없이 Copilot Chat의 Agent Builder로 나만의 에이전트를 만드는 실습 묶음입니다. 한 번에 하나씩, 각 실습은 10분 안팎이면 끝납니다. 지식 소스를 붙이는 FAQ 에이전트부터 안내만으로 성격을 바꾸는 Devil's Advocate까지 순서대로 따라 하세요.",
+      "description": "코딩 없이 Copilot Chat의 Agent Builder로 나만의 에이전트를 만드는 실습 묶음입니다. 한 번에 하나씩, 각 실습은 10분 안팎이면 끝납니다. 지식 소스를 붙이는 FAQ 에이전트, 안내만으로 성격을 바꾸는 Devil's Advocate, 위원 다섯 명이 다투는 심의위원회까지 순서대로 따라 하세요.",
       "downloads": [
         { "label": "실습 목록 열기", "fileType": "URL", "url": "templates/agent-builder-labs/" },
         { "label": "Lab 01 — FAQ 에이전트 만들기", "fileType": "URL", "url": "templates/faq-agent-builder/" },
-        { "label": "Lab 02 — Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" }
+        { "label": "Lab 02 — Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" },
+        { "label": "Lab 03 — 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/exec-committee-agent-builder/" }
       ]
     },
     {
