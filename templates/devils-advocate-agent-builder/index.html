@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="반대편에 서서 계획을 검증하는 Devil's Advocate 에이전트. Agent Builder에서 안내 하나로 만드는 실습 가이드." />
+  <meta name="theme-color" content="#fafbfd" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="../../images/favicon-256.png" />
+
+  <title>Devil's Advocate 에이전트 만들기 실습 — M365 Agent Templates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    /* ===== Sub-page specific styles ===== */
+    .subpage-hero {
+      padding: 48px 0 56px;
+      background:
+        radial-gradient(900px 480px at 80% 0%, rgba(124, 58, 237, 0.10), transparent 60%),
+        radial-gradient(700px 360px at 5% 30%, rgba(37, 99, 255, 0.08), transparent 60%),
+        linear-gradient(180deg, #f6f7fc 0%, #fafbfd 100%);
+    }
+    .subpage-hero .hero-grid {
+      display: block;
+      max-width: 820px;
+    }
+    .subpage-hero h1 {
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .subpage-hero .lead {
+      font-size: 17px;
+      color: var(--text-dim);
+      margin: 0 0 28px;
+      max-width: 56ch;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 18px;
+    }
+    .hero-meta code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 2px 8px;
+      background: #eef0f8;
+      border-radius: 6px;
+      color: var(--text-soft);
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      transition: color 0.15s ease;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Sections */
+    .section {
+      padding: 72px 0;
+    }
+    .section-alt {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .section-head .eyebrow { margin-bottom: 16px; }
+    .section-head h2 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-head .lead {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* Requirements note */
+    .requirements-note {
+      margin-top: 36px;
+      padding: 18px 22px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 13.5px;
+      color: var(--text-soft);
+    }
+    .requirements-note strong {
+      color: var(--text);
+      margin-right: 6px;
+    }
+    .requirements-note span.sep {
+      color: var(--muted);
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .steps li {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-xs);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 14px rgba(124, 58, 237, 0.24);
+    }
+    .steps li h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .steps li p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .steps li p code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--border-strong);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f3eaff 0%, #eaf1ff 100%);
+      border-radius: 14px;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .feature p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+
+    /* Lab instruction block */
+    .lab-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 28px;
+    }
+    .lab-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lab-block h3 .lab-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .lab-block .lab-desc {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+    .lab-block .lab-image {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-table th {
+      background: var(--surface-2);
+      font-weight: 700;
+      color: var(--text);
+      width: 140px;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    .spec-table td {
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+    .spec-table tr:last-child th,
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+    .spec-table code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 1px 6px;
+      background: #eef0f8;
+      border-radius: 4px;
+      color: var(--text-soft);
+    }
+
+    /* Code / instruction block */
+    .instruction-box {
+      background: #f8f5ff;
+      border: 1px solid #e8dff5;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 16px 0;
+    }
+    .instruction-box .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+    .instruction-box pre {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-soft);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .instruction-box-blue {
+      background: #f0f4ff;
+      border-color: #dce4f8;
+    }
+    .instruction-box-blue .label {
+      color: var(--blue);
+    }
+
+    /* Knowledge source list */
+    .knowledge-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .knowledge-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+    .knowledge-list li .k-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    /* Test question cards */
+    .test-questions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .test-q {
+      padding: 16px 18px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .test-q:hover {
+      border-color: var(--border);
+      background: #fff;
+    }
+    .test-q .q-icon {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    /* Recommended-prompt cards with 제목 + 내용 copy rows */
+    .prompt-card { display: flex; flex-direction: column; gap: 10px; }
+    .prompt-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .prompt-row .prompt-label {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--bg-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      margin-top: 1px;
+    }
+    .prompt-row .prompt-value {
+      flex: 1 1 auto;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-soft);
+    }
+    .prompt-row .copy-inline { flex: 0 0 auto; margin-left: 0; }
+
+    /* Idea cards */
+    .idea-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .idea-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .idea-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .idea-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .idea-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .prompt-section {
+      max-width: 820px;
+      margin: 28px auto 0;
+    }
+    .prompt-section h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+
+    /* Tip callout */
+    .tip-callout {
+      display: flex;
+      gap: 14px;
+      padding: 18px 22px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+    .tip-callout .tip-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .tip-callout strong {
+      color: var(--text);
+    }
+
+    /* Copy button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      float: right;
+      margin-top: -4px;
+    }
+    .copy-btn:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+    }
+    .copy-btn.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Inline copy button */
+    .copy-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-left: 6px;
+      vertical-align: middle;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      font-family: inherit;
+    }
+    .copy-inline:hover {
+      background: var(--bg-soft);
+      border-color: var(--border-strong);
+      color: var(--text-soft);
+    }
+    .copy-inline.copied {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #059669;
+    }
+
+    /* Click-to-copy hint for test questions */
+    .click-to-copy {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 4px;
+      transition: color 0.15s ease;
+    }
+    .test-q:hover .click-to-copy {
+      color: var(--blue);
+    }
+    .test-q.copied-card {
+      border-color: #6ee7b7 !important;
+      background: #ecfdf5 !important;
+    }
+    .test-q.copied-card .click-to-copy {
+      color: #059669;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .subpage-hero { padding: 36px 0 48px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .knowledge-list { grid-template-columns: 1fr; }
+      .test-questions { grid-template-columns: 1fr; }
+      .idea-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 56px 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .lab-block { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../../index.html" aria-label="M365 Agent Templates 홈">
+        <span class="brand-logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-text">Microsoft &nbsp;M365 <em>Agent</em> Templates</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="주 메뉴">
+        <a href="#overview">개요</a>
+        <a href="#lab">실습</a>
+        <a href="#spec">에이전트 스펙</a>
+        <a href="#ideas">확장 아이디어</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="subpage-hero">
+      <div class="container">
+        <a class="back-link" href="../../index.html?filter=handson#templates">← 핸즈온 목록으로 돌아가기</a>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Hands-on Lab · Agent Builder</span>
+            <h1>
+              칭찬 대신<br />
+              <span class="gradient-text">반대편에 서는</span><br />
+              에이전트를 만들어 보세요
+            </h1>
+            <p class="lead">
+              생성형 AI는 대체로 사용자 편을 듭니다. 계획을 보여주면 좋은 점부터 찾습니다.
+              <strong>Devil's Advocate</strong>는 반대로 움직이는 에이전트입니다. 계획의 가장 강한 반대 논거를 찾고,
+              실패하는 경로를 시간 순으로 그리고, 사용자가 검증하지 않은 채 믿고 있는 가정을 끄집어냅니다.
+              이 실습에서는 지식 소스 없이 <strong>안내(Instructions)</strong> 하나만으로
+              답변의 성격을 통째로 바꾸는 방법을 익힙니다.
+            </p>
+
+            <div class="hero-meta">
+              <span>Microsoft Korea</span>
+              <span aria-hidden="true">·</span>
+              <span>Hands-on Lab</span>
+              <span aria-hidden="true">·</span>
+              <span>소요 시간 약 <code>10분</code></span>
+              <span aria-hidden="true">·</span>
+              <span>난이도 <code>초급</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">개요</span>
+          <h2>왜 반대하는 에이전트가 필요한가</h2>
+          <p class="lead">기본 Copilot에 계획을 보여주면 대체로 정리해 주고 다듬어 줍니다. 그 계획이 틀렸을 가능성은 잘 짚지 않습니다.</p>
+        </header>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">⚖️</div>
+            <h3>지정된 반대자</h3>
+            <p>"advocatus diaboli"는 1587년 교황청이 시성 심사에 둔 실제 직책입니다. 후보를 반대할 사람을 미리 정해 두고, 통과하려면 그 반대를 먼저 넘게 했습니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🔍</div>
+            <h3>근거부터 따진다</h3>
+            <p>새 반대 논거를 세우기 전에 사용자가 이미 댄 근거를 하나씩 검증합니다. 상대의 논거를 놔두고 딴 데서 공격하면 반박이 빗나갑니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🧩</div>
+            <h3>지식 소스가 필요 없다</h3>
+            <p>사용자가 준 텍스트만으로 추론합니다. 안내 하나로 답변의 성격이 얼마나 달라지는지 확인하기에 좋은 실습입니다.</p>
+          </article>
+        </div>
+
+        <div class="requirements-note">
+          <strong>사전 요구사항</strong>
+          <span>조직 계정(Entra ID)</span>
+          <span class="sep">·</span>
+          <span>Copilot Chat 접근 권한</span>
+          <span class="sep">·</span>
+          <span>웹 브라우저 (Edge / Chrome 권장) 또는 M365 Copilot 앱</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>이 에이전트가 답하는 순서</h2>
+          <p class="lead">안내에 출력 형식을 못박아 두면 매번 같은 순서로 답합니다. 순서 자체가 검증 절차입니다.</p>
+        </header>
+
+        <ol class="steps">
+          <li>
+            <span class="step-num">1</span>
+            <h3>명제를 고정한다</h3>
+            <p>사용자의 주장을 <strong>한 문장으로 다시 씁니다.</strong> 이 단계를 건너뛰면 엉뚱한 것을 반박하게 됩니다.</p>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <h3>제시된 근거를 친다</h3>
+            <p>사용자가 든 근거가 <strong>사실인지 해석인지</strong> 가르고, 그 하나가 무너지면 주장 전체가 무너지는지 봅니다.</p>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <h3>반대 논거와 실패 경로</h3>
+            <p>가장 강한 반대 논거 <strong>3개</strong>를 세우고, 실패한다면 어떤 경로로 실패하는지 <strong>시간 순</strong>으로 씁니다.</p>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <h3>뒤집는 조건과 판정</h3>
+            <p><strong>"그럼에도 이 계획이 맞으려면"</strong> 무엇이 참이어야 하는지 적고, 마지막에 한 줄로 판정합니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- HANDS-ON LAB -->
+    <section id="lab" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">Hands-on Lab</span>
+          <h2>Devil's Advocate 에이전트 만들기</h2>
+          <p class="lead">지식 소스 없이 안내만으로 만듭니다. 붙여넣고 테스트까지 10분이면 끝납니다.</p>
+        </header>
+
+        <!-- Step 1 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">1</span>
+            Agent Builder 열기
+          </h3>
+          <p class="lab-desc">
+            아래 두 가지 방법 중 편한 쪽으로 접속하세요.
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th>방법 A</th>
+              <td>웹 브라우저에서 <a href="https://m365.cloud.microsoft/chat/" target="_blank" rel="noopener" style="color: var(--blue); font-weight: 600;">m365.cloud.microsoft/chat</a>에 접속합니다.</td>
+            </tr>
+            <tr>
+              <th>방법 B</th>
+              <td><strong>M365 Copilot 앱</strong>(데스크톱 또는 모바일)을 열어도 동일하게 사용할 수 있습니다.</td>
+            </tr>
+          </table>
+
+          <p class="lab-desc" style="margin-top: 16px;">
+            로그인 후 좌측 사이드바의 <strong>에이전트</strong> 목록에서 <strong>"새 에이전트"</strong>를 클릭합니다. 아래와 같은 Agent Builder 첫 화면이 열립니다.
+          </p>
+
+          <img src="images/step1-new-agent.png" alt="Copilot Chat 좌측 사이드바에서 새 에이전트를 선택하면 Agent Builder 첫 화면이 열립니다." class="lab-image" />
+
+          <p class="lab-desc">
+            이 화면에서 만들려는 에이전트를 자연어로 설명하거나, 오른쪽의 <strong>"건너뛰기 →"</strong>를 클릭해 직접 구성할 수 있습니다. 이 실습에서는 <strong>"건너뛰기"</strong>를 클릭하세요.
+          </p>
+
+          <div class="tip-callout">
+            <span class="tip-icon">⚠️</span>
+            <div>
+              <strong>참고</strong> — 이 실습은 Copilot Chat에 내장된 <strong>Agent Builder</strong> 기능을 사용합니다.
+              Copilot Studio 포털을 열지 않고 Copilot Chat 안에서 구성하는 흐름입니다. 표시되는 기능은 조직 설정에 따라 다를 수 있습니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">2</span>
+            구성(Configure) 탭 — 빈 화면 확인
+          </h3>
+          <p class="lab-desc">
+            "건너뛰기"를 클릭하면 아래와 같은 빈 구성 화면이 열립니다. 왼쪽은 자연어 입력란, 오른쪽은 <strong>구성</strong> 탭입니다. 이름은 <strong>"새 에이전트"</strong>, 안내는 비어 있는 상태입니다.
+          </p>
+
+          <img src="images/step2-configure-empty.png" alt="Agent Builder 구성 화면 — 이름이 새 에이전트이고 안내 영역이 비어 있는 초기 상태" class="lab-image" />
+
+          <p class="lab-desc">
+            여기서 <strong>이름</strong>, <strong>설명</strong>, <strong>안내(Instructions)</strong>를 차례로 채웁니다. 아래 표의 값을 그대로 복사해서 붙여넣으세요.
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td>
+                <span class="copyable" data-copy="Devil's Advocate"><strong>Devil's Advocate</strong> <button class="copy-inline" onclick="copyText(this)" aria-label="이름 복사">복사</button></span>
+              </td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>
+                <span class="copyable" data-copy="계획이나 주장을 반대편에 서서 검증합니다. 가장 강한 반대 논거, 실패 시나리오, 검증되지 않은 숨은 가정을 찾아내고 마지막에 그럼에도 이 계획이 맞으려면 무엇이 참이어야 하는지 정리합니다.">계획이나 주장을 반대편에 서서 검증합니다. 가장 강한 반대 논거, 실패 시나리오, 검증되지 않은 숨은 가정을 찾아내고 마지막에 그럼에도 이 계획이 맞으려면 무엇이 참이어야 하는지 정리합니다. <button class="copy-inline" onclick="copyText(this)" aria-label="설명 복사">복사</button></span>
+              </td>
+            </tr>
+            <tr>
+              <th>로고</th>
+              <td>기본 로고를 그대로 써도 됩니다. 이 실습의 캡처는 기본 로고 상태입니다.</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">3</span>
+            안내(Instructions) 붙여넣기
+          </h3>
+          <p class="lab-desc">
+            이 실습의 핵심입니다. 아래 안내를 통째로 복사해 <strong>"안내"</strong> 영역에 붙여넣으세요. 붙여넣고 나면 아래 캡처와 같은 상태가 됩니다.
+          </p>
+
+          <img src="images/step3-instructions-filled.png" alt="Devil's Advocate 이름과 설명, 안내가 채워진 Agent Builder 구성 화면. 지식 영역은 비어 있습니다." class="lab-image" />
+
+          <div class="instruction-box" style="margin-top: 20px;">
+            <div class="label">안내 (Instructions) — 아래 전체를 복사하여 "안내" 영역에 붙여넣으세요</div>
+            <button class="copy-btn" onclick="copyInstructions(this)" aria-label="안내 복사">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              복사
+            </button>
+            <pre id="instructions-text">당신은 사용자의 계획과 주장을 반대편에서 검증하는 역할을 맡는다. 목적은 이기는 게 아니라 사용자가 놓친 것을 찾는 것이다. 반박을 위한 반박은 실패다.
+
+# 대화를 시작할 때
+
+사용자가 검증할 대상을 주면 확인을 구하지 말고 곧바로 아래 순서를 실행한다.
+
+무엇을 검증할지 알 수 없으면(인사만 했거나 대상이 없으면) "어떤 계획이나 주장을 검증할까요?"라고만 묻고 기다린다.
+
+주장이 두 가지 이상으로 읽히거나 대상이 불분명하면 반박을 시작하지 말고 되묻는다. 추측으로 진행하면 엉뚱한 것을 반박하게 된다.
+
+# 출력 형식
+
+아래 일곱 개 제목을 순서대로, 이 표기 그대로 쓴다. 제목을 바꾸거나 빼지 않는다.
+
+**검증 대상**
+사용자의 주장을 한 문장으로 다시 쓴다.
+
+**제시된 근거 검증**
+사용자가 자기 주장의 근거로 든 것을 먼저 하나씩 따진다. 근거를 대지 않았으면 "근거가 제시되지 않았다"고 적고 넘어간다.
+- 그 근거가 사실인가, 아니면 사용자의 해석인가
+- 사실이라면 이 계획에도 그대로 적용되는가. 조건이 다르지 않은가
+- 그 근거 하나가 무너지면 주장 전체가 무너지는가
+
+**반대 논거**
+가장 강한 것부터 3개. 각각 이렇게 쓴다.
+- 주장: 한 문장
+- 근거: 왜 그런가. 사실이나 데이터가 있으면 쓰고, 없으면 "추론"이라고 표시한다
+- 이게 맞으면: 사용자 계획에 어떤 결과가 오는가
+
+**실패 시나리오**
+이 계획이 실패한다면 가장 그럴듯한 경로를 시간 순으로 쓴다. 추상적 리스크 나열이 아니라 이야기로 쓴다.
+예) 3개월 차에 X가 일어나고 → 그래서 Y를 하게 되고 → 결국 Z로 끝난다
+
+**숨은 가정**
+사용자가 참이라고 가정하고 있지만 검증하지 않은 것을 찾아 나열한다. 보통 여기에 진짜 위험이 있다.
+
+**그럼에도 이 계획이 맞으려면**
+반박을 뒤집는 조건을 쓴다. 이게 핵심 산출물이다.
+"위 반대 논거가 전부 빗나가려면 다음이 참이어야 합니다: ① … ② … ③ …"
+"이 중 ②는 지금 확인 가능합니다. 확인 방법: …"
+
+**판정**
+한 줄로. 셋 중 하나를 고른다.
+- 계획을 바꿔야 한다 (무엇을)
+- 계획은 두되 특정 가정을 먼저 검증해야 한다 (무엇을 어떻게)
+- 반대 논거가 약하다. 그대로 가도 된다
+
+# 규칙
+
+- 새 반대 논거를 만들기 전에 사용자가 이미 댄 근거부터 친다. 상대의 논거를 놔두고 딴 데서 공격하면 반박이 빗나간다.
+- 양쪽 다 하지 않는다. 균형 잡힌 분석은 다른 작업이다. 여기서는 반대편에 선다. 다만 마지막 판정에서는 정직하게 말한다.
+- 사람이 아니라 계획을 친다. "판단이 안이하다"가 아니라 "이 가정이 검증되지 않았다".
+- 모르는 건 모른다고 한다. 반박을 채우려고 없는 데이터를 지어내지 않는다.
+- 수치, 통계, 사례, 출처를 새로 만들어 쓰지 않는다. 확실하지 않으면 "추정"이라고 표시하거나 아예 쓰지 않는다.
+- 약한 논거는 넣지 않는다. 3개를 못 채우면 2개만 쓰고 "더 강한 반대 논거를 찾지 못했다"고 밝힌다. 그것 자체가 유용한 신호다.
+- 전체 분량은 1,100자 안팎. 논거 하나에 3~5줄.
+
+# 하지 말 것
+
+- "하지만 물론 좋은 점도 많습니다" 같은 완충 문구
+- 리스크를 "리스크가 있을 수 있습니다"로 두루뭉술하게 쓰기. 무엇이 어떻게 잘못되는지 특정한다
+- 반대 논거를 5개, 7개로 늘리기. 약한 게 섞이면 강한 것도 같이 힘을 잃는다
+- 답변 끝에 "도움이 되었길 바랍니다" 같은 마무리 인사</pre>
+          </div>
+
+          <div class="tip-callout">
+            <span class="tip-icon">💡</span>
+            <div>
+              <strong>이 안내에서 눈여겨볼 곳</strong><br />
+              · <strong># 출력 형식</strong> — 제목 일곱 개를 표기까지 못박았습니다. 이렇게 하지 않으면 모델이 절차를 제 식대로 요약합니다.<br />
+              · <strong>"1,100자 안팎"</strong> — 분량은 "간결하게"가 아니라 숫자로 줘야 지켜집니다.<br />
+              · <strong>"수치를 새로 만들어 쓰지 않는다"</strong> — 반박을 채우려고 통계를 지어내는 것을 막는 문장입니다.
+            </div>
+          </div>
+
+          <div class="tip-callout">
+            <span class="tip-icon">⚠️</span>
+            <div>
+              <strong>지식과 웹 검색</strong> — 이 에이전트는 <strong>지식 소스를 추가하지 않습니다.</strong> 캡처의 지식 영역도 비어 있습니다.
+              웹 검색을 켜면 근거를 웹에서 주워 와 "추론"으로 표시해야 할 것을 사실처럼 쓸 수 있으니, 실습에서는 꺼 두는 쪽을 권합니다.
+              사내 문서를 근거로 반박하게 하려면 SharePoint 사이트를 지식으로 추가하되, 안내의 근거 표시 규칙을 함께 손봐야 합니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">4</span>
+            테스트하기
+          </h3>
+          <p class="lab-desc">
+            상단의 <strong>"사용해 보기"</strong> 탭에서 바로 테스트합니다. 자기 계획을 넣어도 되고, 아래 질문을 그대로 써도 됩니다.
+          </p>
+
+          <div class="test-questions">
+            <div class="test-q copyable" data-copy="우리 팀은 내년부터 주 4일 근무제를 시범 도입하려고 합니다. 생산성은 유지되고 채용 경쟁력이 올라갈 거라고 봅니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 1</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              우리 팀은 내년부터 주 4일 근무제를 시범 도입하려고 합니다. 생산성은 유지되고 채용 경쟁력이 올라갈 거라고 봅니다.
+            </div>
+            <div class="test-q copyable" data-copy="사내 문의 응대를 전부 AI 에이전트로 바꾸면 헬프데스크 인력을 절반으로 줄일 수 있습니다. 문의의 80퍼센트가 단순 반복이기 때문입니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 2</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              사내 문의 응대를 전부 AI 에이전트로 바꾸면 헬프데스크 인력을 절반으로 줄일 수 있습니다. 문의의 80퍼센트가 단순 반복이기 때문입니다.
+            </div>
+            <div class="test-q copyable" data-copy="경쟁사가 다 하고 있으니 우리도 이번 분기에 신규 서비스를 출시해야 합니다." onclick="copyText(this)" style="cursor: pointer;">
+              <div class="q-icon">💬</div>
+              <strong>질문 3</strong> <span class="click-to-copy">클릭하여 복사</span><br />
+              경쟁사가 다 하고 있으니 우리도 이번 분기에 신규 서비스를 출시해야 합니다.
+            </div>
+          </div>
+
+          <div class="tip-callout" style="margin-top: 20px;">
+            <span class="tip-icon">✅</span>
+            <div>
+              <strong>체크포인트</strong> — 답변이 아래를 지키는지 확인하세요.<br />
+              · <strong>검증 대상</strong>이 맨 앞에 한 문장으로 나오는지<br />
+              · <strong>제시된 근거 검증</strong>이 사용자가 든 근거(예: "문의의 80퍼센트")를 직접 다루는지<br />
+              · <strong>반대 논거</strong>가 3개를 넘지 않는지<br />
+              · <strong>그럼에도 이 계획이 맞으려면</strong>에 <strong>확인 방법</strong>이 붙어 있는지<br />
+              · 끝에 "도움이 되었길 바랍니다" 같은 인사가 없는지
+            </div>
+          </div>
+
+          <div class="tip-callout">
+            <span class="tip-icon">🔬</span>
+            <div>
+              <strong>같은 질문을 기본 Copilot에도 넣어 보세요</strong> — 같은 문장을 새 Copilot Chat 창에 그대로 던지고 두 답을 나란히 놓아 보면,
+              안내 하나로 답변의 성격이 얼마나 달라지는지 한눈에 보입니다. 이 실습의 진짜 목적은 그 차이를 확인하는 것입니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">5</span>
+            추천 프롬프트 설정
+          </h3>
+          <p class="lab-desc">
+            추천 프롬프트를 등록해 두면 사용자가 에이전트를 열었을 때 바로 클릭해서 시작할 수 있습니다. 추천 프롬프트는 <strong>제목</strong>과 <strong>내용</strong> 두 칸으로 나뉘어 있으니, 아래 카드에서 각각의 <strong>복사</strong> 버튼을 눌러 붙여 넣으세요.
+          </p>
+
+          <div class="test-questions">
+            <div class="test-q prompt-card">
+              <div class="q-icon">🎯</div>
+              <div class="prompt-row copyable" data-copy="계획 허점 찾기">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">계획 허점 찾기</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="지금 준비 중인 계획을 설명할 테니 가장 강한 반대 논거 3개와 실패 시나리오를 짚어 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">지금 준비 중인 계획을 설명할 테니 가장 강한 반대 논거 3개와 실패 시나리오를 짚어 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
+              <div class="q-icon">🧨</div>
+              <div class="prompt-row copyable" data-copy="내 논리 깨보기">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">내 논리 깨보기</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="제 주장을 그대로 옮겨 드릴 테니 반대편에 서서 논리를 깨 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">제 주장을 그대로 옮겨 드릴 테니 반대편에 서서 논리를 깨 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
+              <div class="q-icon">🕳️</div>
+              <div class="prompt-row copyable" data-copy="숨은 가정 찾기">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">숨은 가정 찾기</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="이 결정에서 제가 검증하지 않은 채 참이라고 믿고 있는 가정을 찾아 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">이 결정에서 제가 검증하지 않은 채 참이라고 믿고 있는 가정을 찾아 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
+              <div class="q-icon">🚦</div>
+              <div class="prompt-row copyable" data-copy="출시 전 점검">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">출시 전 점검</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="다음 달 출시를 앞두고 있습니다. 이대로 가면 무엇이 잘못될 수 있는지 반대편에서 봐 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">다음 달 출시를 앞두고 있습니다. 이대로 가면 무엇이 잘못될 수 있는지 반대편에서 봐 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
+              <div class="q-icon">💰</div>
+              <div class="prompt-row copyable" data-copy="투자 판단 재검토">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">투자 판단 재검토</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="이 투자를 하기로 기울었는데, 하지 말아야 할 가장 강한 이유를 찾아 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">이 투자를 하기로 기울었는데, 하지 말아야 할 가장 강한 이유를 찾아 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+            <div class="test-q prompt-card">
+              <div class="q-icon">🏢</div>
+              <div class="prompt-row copyable" data-copy="조직 개편안 검증">
+                <span class="prompt-label">제목</span>
+                <span class="prompt-value">조직 개편안 검증</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="제목 복사">복사</button>
+              </div>
+              <div class="prompt-row copyable" data-copy="조직 개편안을 설명하겠습니다. 반대 논거와 숨은 가정을 정리해 주세요.">
+                <span class="prompt-label">내용</span>
+                <span class="prompt-value">조직 개편안을 설명하겠습니다. 반대 논거와 숨은 가정을 정리해 주세요.</span>
+                <button class="copy-inline" onclick="copyText(this)" aria-label="내용 복사">복사</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="lab-block">
+          <h3>
+            <span class="lab-step-badge">6</span>
+            만들기(Create) &amp; 공유
+          </h3>
+          <p class="lab-desc">
+            테스트가 만족스러우면 오른쪽 상단의 <strong>"만들기"</strong> 버튼을 클릭합니다. 만들기 후 공유 창에서 이 에이전트를 누가 사용할 수 있는지 선택합니다.
+          </p>
+
+          <table class="spec-table">
+            <tr>
+              <th>조직 내 모든 사용자</th>
+              <td>조직 전체가 사용할 수 있게 공유합니다. 이 에이전트는 답변이 날카로우므로 팀 안에서 충분히 써 본 뒤 넓히는 편이 좋습니다.</td>
+            </tr>
+            <tr>
+              <th>조직의 특정 사용자</th>
+              <td>특정 동료나 팀에만 공유합니다. 기획 리뷰나 의사결정 회의를 앞둔 팀에 적합합니다.</td>
+            </tr>
+            <tr>
+              <th>사용자만</th>
+              <td>본인만 사용할 수 있는 기본 옵션입니다. 실습 중에는 이 옵션으로 만든 뒤 충분히 테스트하는 것을 권장합니다.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENT SPEC -->
+    <section id="spec" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">에이전트 스펙</span>
+          <h2>Devil's Advocate 전체 구성 요약</h2>
+          <p class="lead">실습에서 만든 에이전트의 전체 사양을 한눈에 정리합니다.</p>
+        </header>
+
+        <div class="lab-block" style="max-width: 820px; margin: 0 auto;">
+          <table class="spec-table">
+            <tr>
+              <th>이름</th>
+              <td><strong>Devil's Advocate</strong></td>
+            </tr>
+            <tr>
+              <th>설명</th>
+              <td>계획이나 주장을 반대편에 서서 검증합니다. 가장 강한 반대 논거, 실패 시나리오, 검증되지 않은 숨은 가정을 찾아내고 마지막에 그럼에도 이 계획이 맞으려면 무엇이 참이어야 하는지 정리합니다.</td>
+            </tr>
+            <tr>
+              <th>안내 핵심</th>
+              <td>
+                <strong>출력 형식:</strong> 검증 대상 → 제시된 근거 검증 → 반대 논거 → 실패 시나리오 → 숨은 가정 → 그럼에도 이 계획이 맞으려면 → 판정<br />
+                <strong>규칙:</strong> 한쪽 편에만 선다 · 사람이 아니라 계획을 친다 · 없는 수치를 지어내지 않는다 · 논거는 최대 3개<br />
+                <strong>분량:</strong> 1,100자 안팎
+              </td>
+            </tr>
+            <tr>
+              <th>지식 소스</th>
+              <td>없음. 사용자가 준 텍스트만으로 추론합니다. 웹 검색은 꺼 두는 쪽을 권합니다.</td>
+            </tr>
+            <tr>
+              <th>테스트 질문</th>
+              <td>
+                · 주 4일 근무제 시범 도입<br />
+                · 헬프데스크 인력 절반 감축<br />
+                · 경쟁사를 따라가는 분기 내 신규 서비스 출시
+              </td>
+            </tr>
+            <tr>
+              <th>필요 권한</th>
+              <td>Copilot Chat에서 Agent Builder를 사용할 수 있는 계정. 실제 사용 가능 여부와 공유 범위는 조직의 라이선스·관리자 정책에 따라 달라질 수 있음</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTENSION IDEAS -->
+    <section id="ideas" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">더 해보기</span>
+          <h2>안내만 바꾸면 이런 사고 도구도 만들 수 있습니다</h2>
+          <p class="lead">Devil's Advocate와 같은 방식입니다. 출력 형식을 못박고 분량을 숫자로 주면 됩니다.</p>
+        </header>
+
+        <div class="idea-grid">
+          <article class="idea-card">
+            <h3><span class="rank-badge">1</span> 프리모템 에이전트</h3>
+            <p>"6개월 뒤 이 프로젝트는 완전히 실패했다"를 사실로 놓고 부고 기사를 쓰게 합니다. 실패 원인을 발생 가능성과 타격 크기로 나누고 각각에 조기 경보 신호를 붙이도록 안내에 적으세요.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">2</span> 스틸맨 에이전트</h3>
+            <p>반대편 주장을 그쪽 사람보다 더 강하게 재구성하게 합니다. Devil's Advocate가 내 계획을 친다면, 이쪽은 내가 반대하는 주장을 가장 좋은 형태로 만들어 줍니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">3</span> 뒤집어 보기 에이전트</h3>
+            <p>"어떻게 성공할까" 대신 "어떻게 하면 확실히 망할까"를 먼저 다 적게 하고, 그것을 피하는 조건으로 답을 만들게 합니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">4</span> 다섯 관점 에이전트</h3>
+            <p>낙관론자, 비관론자, 숫자 담당, 윤리 담당, 5년 뒤의 나. 다섯 역할이 각자 답하고 마지막에 의장이 종합하게 합니다. 회의 전 혼자 예행연습할 때 좋습니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">5</span> 쉽게 풀어주는 에이전트</h3>
+            <p>전문 개념을 신입사원도 알아듣게 바꿔 줍니다. 대상 수준을 먼저 묻고, 비유가 깨지는 지점까지 밝히도록 안내에 적으면 정확도가 올라갑니다.</p>
+          </article>
+          <article class="idea-card">
+            <h3><span class="rank-badge">6</span> 제1원리 에이전트</h3>
+            <p>현재 통념을 적고 각 항목이 반드시 참인지 그냥 관행인지 분류하게 한 뒤, 반드시 참인 것만으로 답을 다시 쌓게 합니다.</p>
+          </article>
+        </div>
+
+        <div class="tip-callout" style="max-width: 820px; margin: 32px auto 0;">
+          <span class="tip-icon">🚀</span>
+          <div>
+            <strong>지식이나 액션이 필요해지면?</strong><br />
+            Agent Builder는 안내와 지식 소스까지를 다룹니다. 사내 시스템 호출, Power Automate 워크플로,
+            Dataverse 연동처럼 <strong>행동</strong>이 필요해지면 <strong>Copilot Studio</strong>로 넘어가세요.
+            이 사이트의 다른 템플릿에서 Copilot Studio 기반 예제를 확인할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Microsoft Corporation. MIT License.</div>
+      <nav aria-label="푸터 메뉴">
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/issues" target="_blank" rel="noopener">이슈</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/blob/main/LICENSE" target="_blank" rel="noopener">라이선스</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var nav = document.getElementById("primary-nav");
+      if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("is-open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
+        });
+      }
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+
+    // Copy instructions (large block with dedicated button)
+    function copyInstructions(btn) {
+      var text = document.getElementById("instructions-text").textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.classList.add("copied");
+        btn.innerHTML =
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 복사됨!';
+        setTimeout(function () {
+          btn.classList.remove("copied");
+          btn.innerHTML =
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사';
+        }, 2000);
+      });
+    }
+
+    // Generic copy — works with inline buttons and clickable cards
+    function copyText(el) {
+      var copyable = el.closest(".copyable") || el;
+      var text = copyable.getAttribute("data-copy");
+      if (!text) return;
+
+      navigator.clipboard.writeText(text).then(function () {
+        // Inline button style
+        var inlineBtn = copyable.querySelector(".copy-inline");
+        if (inlineBtn) {
+          var original = inlineBtn.textContent;
+          inlineBtn.classList.add("copied");
+          inlineBtn.textContent = "복사됨!";
+          setTimeout(function () {
+            inlineBtn.classList.remove("copied");
+            inlineBtn.textContent = original;
+          }, 1500);
+          return;
+        }
+
+        // Card style (test questions)
+        var hint = copyable.querySelector(".click-to-copy");
+        if (hint) {
+          var origHint = hint.textContent;
+          copyable.classList.add("copied-card");
+          hint.textContent = "복사됨!";
+          setTimeout(function () {
+            copyable.classList.remove("copied-card");
+            hint.textContent = origHint;
+          }, 1500);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
