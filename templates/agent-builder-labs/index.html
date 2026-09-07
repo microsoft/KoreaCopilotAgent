@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Copilot Chat의 Agent Builder로 나만의 에이전트를 만드는 실습 묶음입니다. 한 번에 하나씩 10분이면 끝납니다." />
+  <meta name="theme-color" content="#fafbfd" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="256x256" href="../../images/favicon-256.png" />
+
+  <title>Agent Builder 실습 — M365 Agent Templates</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <style>
+    /* ===== Sub-page shell ===== */
+    .subpage-hero {
+      padding: 48px 0 56px;
+      background:
+        radial-gradient(900px 480px at 80% 0%, rgba(124, 58, 237, 0.10), transparent 60%),
+        radial-gradient(700px 360px at 5% 30%, rgba(37, 99, 255, 0.08), transparent 60%),
+        linear-gradient(180deg, #f6f7fc 0%, #fafbfd 100%);
+    }
+    .subpage-hero .hero-grid { display: block; max-width: 820px; }
+    .subpage-hero h1 {
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    /* 한글 1글자 ≈ 0.86em (Pretendard). 38em ≈ 44자 */
+    .subpage-hero .lead {
+      font-size: 17px;
+      color: var(--text-dim);
+      margin: 0 0 28px;
+      max-width: 38em;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 18px;
+    }
+    .hero-meta code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 2px 8px;
+      background: #eef0f8;
+      border-radius: 6px;
+      color: var(--text-soft);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+      transition: color 0.15s ease;
+    }
+    .back-link:hover { color: var(--text); }
+
+    .section { padding: 72px 0; }
+    .section-alt {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .section-head .eyebrow { margin-bottom: 16px; }
+    .section-head h2 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .section-head .lead {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* ===== Lab list ===== */
+    .lab-list {
+      display: grid;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .lab-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 84px 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 26px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-xs);
+      transition: border-color 0.15s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .lab-card.is-live:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .lab-card.is-soon {
+      background: repeating-linear-gradient(
+        135deg, #fbfcfe, #fbfcfe 12px, #f6f7fb 12px, #f6f7fb 24px
+      );
+    }
+
+    .lab-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+      color: #fff;
+    }
+    .lab-card.is-soon .lab-num {
+      background: #e9ebf2;
+      color: var(--muted);
+    }
+
+    .lab-body h3 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .lab-body h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .lab-body h3 a::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+    }
+    .lab-body p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text-dim);
+      margin: 0 0 12px;
+      max-width: 40em;
+    }
+    .lab-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .lab-tags span {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+    }
+    .lab-tags span.state-live {
+      background: var(--tag-handson-bg);
+      border-color: transparent;
+      color: var(--tag-handson-fg);
+      font-weight: 600;
+    }
+    .lab-tags span.state-soon {
+      background: #f0f1f6;
+      border-color: transparent;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .lab-go {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      flex: none;
+    }
+    .lab-card.is-live:hover .lab-go {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+    .lab-card.is-soon .lab-go { opacity: 0.35; }
+
+    /* ===== Feature grid ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .feature {
+      padding: 26px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+    .feature h3 {
+      font-size: 16.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .feature p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* ===== Checklist ===== */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 760px;
+      display: grid;
+      gap: 12px;
+    }
+    .checklist li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .checklist li svg { margin-top: 4px; color: var(--tag-handson-fg); }
+    .checklist li strong { color: var(--text); }
+
+    .note {
+      max-width: 760px;
+      margin: 32px auto 0;
+      padding: 18px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--tag-handson-fg);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-soft);
+    }
+    .note strong { color: var(--text); }
+
+    @media (max-width: 1024px) {
+      .subpage-hero { padding: 36px 0 48px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .section { padding: 56px 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .lab-card {
+        grid-template-columns: 52px 1fr;
+        gap: 16px 18px;
+        padding: 22px 20px;
+      }
+      .lab-num { width: 52px; height: 52px; font-size: 18px; border-radius: 14px; }
+      .lab-go { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../../index.html" aria-label="M365 Agent Templates 홈">
+        <span class="brand-logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="brand-text">Microsoft &nbsp;M365 <em>Agent</em> Templates</span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="주 메뉴">
+        <a href="#labs">실습 목록</a>
+        <a href="#about">Agent Builder</a>
+        <a href="#ready">준비물</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="subpage-hero">
+      <div class="container">
+        <a class="back-link" href="../../index.html?filter=handson#templates">← 핸즈온 목록으로 돌아가기</a>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Hands-on Lab Series · Agent Builder</span>
+            <h1>
+              코딩 없이 만드는<br />
+              <span class="gradient-text">나만의 에이전트</span><br />
+              한 번에 하나씩
+            </h1>
+            <p class="lead">
+              Copilot Chat의 Agent Builder만 있으면 됩니다. 도구를 새로 깔 필요도, 코드를 쓸 필요도 없습니다.
+              아래 실습을 위에서부터 하나씩 따라 하세요. 각 실습은 10분 안팎이면 끝나고,
+              마칠 때마다 팀에 바로 공유할 수 있는 에이전트가 하나씩 남습니다.
+            </p>
+
+            <div class="hero-meta">
+              <span>Microsoft Korea</span>
+              <span aria-hidden="true">·</span>
+              <span>Hands-on Lab Series</span>
+              <span aria-hidden="true">·</span>
+              <span>실습 <code>2개</code></span>
+              <span aria-hidden="true">·</span>
+              <span>난이도 <code>초급</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAB LIST -->
+    <section id="labs" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">실습 목록</span>
+          <h2>순서대로 하나씩 따라 하세요</h2>
+          <p class="lead">순서를 지키지 않아도 됩니다. 다만 1번부터 하면 Agent Builder 화면에 먼저 익숙해집니다.</p>
+        </header>
+
+        <div class="lab-list">
+          <!-- Lab 01 -->
+          <article class="lab-card is-live">
+            <div class="lab-num" aria-hidden="true">01</div>
+            <div class="lab-body">
+              <h3><a href="../faq-agent-builder/">FAQ 에이전트 만들기</a></h3>
+              <p>
+                사내 문의를 대신 받아 주는 <strong>Copilot Help Buddy</strong>를 만듭니다.
+                안내 문구를 쓰고 공개 웹사이트를 지식 소스로 붙이면, 같은 질문에 늘 같은 기준으로 답하는 에이전트가 됩니다.
+                지식 소스를 연결하는 방법을 익힙니다.
+              </p>
+              <div class="lab-tags">
+                <span class="state-live">공개</span>
+                <span>10~15분</span>
+                <span>초급</span>
+                <span>지식 소스 연결</span>
+              </div>
+            </div>
+            <span class="lab-go" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </article>
+
+          <!-- Lab 02 -->
+          <article class="lab-card is-live">
+            <div class="lab-num" aria-hidden="true">02</div>
+            <div class="lab-body">
+              <h3><a href="../devils-advocate-agent-builder/">Devil's Advocate 에이전트 만들기</a></h3>
+              <p>
+                내 계획에 일부러 반대편에 서는 에이전트를 만듭니다.
+                Copilot은 대체로 사용자 편을 들지만, 이 에이전트는 가장 강한 반대 논거를 찾고 실패하는 경로를 그려 줍니다.
+                지식 소스 없이 안내만으로 성격을 바꾸는 방법을 익힙니다.
+              </p>
+              <div class="lab-tags">
+                <span class="state-live">공개</span>
+                <span>10분</span>
+                <span>초급</span>
+                <span>안내만으로 제작</span>
+              </div>
+            </div>
+            <span class="lab-go" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </article>
+
+          <!-- Next -->
+          <article class="lab-card is-soon">
+            <div class="lab-num" aria-hidden="true">03</div>
+            <div class="lab-body">
+              <h3>다음 실습을 준비하고 있습니다</h3>
+              <p>
+                실습은 계속 늘어납니다. 만들고 싶은 에이전트가 있으면 GitHub 이슈로 알려 주세요.
+              </p>
+              <div class="lab-tags">
+                <span class="state-soon">준비 중</span>
+                <span><a href="https://github.com/microsoft/KoreaCopilotAgent/issues" target="_blank" rel="noopener">아이디어 남기기</a></span>
+              </div>
+            </div>
+            <span class="lab-go" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">개요</span>
+          <h2>Agent Builder란?</h2>
+          <p class="lead">Copilot Chat 안에서 도구를 새로 깔지 않고, 한국어 안내만으로 나만의 에이전트를 만드는 기능입니다.</p>
+        </header>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">💬</div>
+            <h3>Copilot Chat 안에서 제작</h3>
+            <p>웹 브라우저나 M365 Copilot 앱에서 바로 만듭니다. 설치하거나 환경을 따로 준비할 일이 없습니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">📝</div>
+            <h3>안내만으로 동작</h3>
+            <p>"어떻게 답해야 하는지"를 한국어로 적으면 됩니다. 답변 규칙과 톤, 출력 형식을 그 자리에서 정합니다.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">🚀</div>
+            <h3>만들고 바로 공유</h3>
+            <p>완성한 에이전트는 링크로 동료에게 넘길 수 있습니다. 받은 사람은 자기 Copilot에서 그대로 씁니다.</p>
+          </article>
+        </div>
+
+        <div class="note">
+          <strong>Copilot Studio와는 무엇이 다른가요?</strong><br />
+          Agent Builder는 안내와 공개 웹 지식만으로 빠르게 만드는 도구입니다.
+          SharePoint나 Dataverse 연동, Power Automate 흐름, 사용자 지정 커넥터가 필요하면 Copilot Studio로 넘어가세요.
+          이 사이트의 다른 템플릿에서 Copilot Studio 예제를 볼 수 있습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- READY -->
+    <section id="ready" class="section">
+      <div class="container">
+        <header class="section-head">
+          <span class="eyebrow">준비물</span>
+          <h2>시작하기 전에 확인할 것</h2>
+          <p class="lead">세 가지만 갖추면 바로 시작할 수 있습니다.</p>
+        </header>
+
+        <ul class="checklist">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><strong>Microsoft 365 Copilot 계정</strong><br />회사 계정으로 Copilot Chat에 로그인할 수 있으면 됩니다.</div>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><strong>Agent Builder 사용 권한</strong><br />조직의 라이선스와 관리자 정책에 따라 메뉴가 보이지 않을 수 있습니다. 화면에 에이전트 만들기 항목이 없으면 IT 담당자에게 문의하세요.</div>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><strong>웹 브라우저</strong><br />Edge나 Chrome이면 충분합니다. M365 Copilot 데스크톱 앱에서도 같은 화면이 나옵니다.</div>
+          </li>
+        </ul>
+
+        <div class="note">
+          <strong>실습 중 화면이 안내와 다르다면?</strong><br />
+          Agent Builder는 자주 바뀝니다. 버튼 이름이나 위치가 조금 달라도 흐름은 같습니다.
+          만들기, 안내 입력, 지식 연결, 테스트 순서만 기억하면 됩니다.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Microsoft Corporation. MIT License.</div>
+      <nav aria-label="푸터 메뉴">
+        <a href="https://github.com/microsoft/KoreaCopilotAgent" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/issues" target="_blank" rel="noopener">이슈</a>
+        <a href="https://github.com/microsoft/KoreaCopilotAgent/blob/main/LICENSE" target="_blank" rel="noopener">라이선스</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.querySelector(".nav-toggle");
+      var nav = document.getElementById("primary-nav");
+      if (toggle && nav) {
+        toggle.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("is-open");
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
+        });
+      }
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>

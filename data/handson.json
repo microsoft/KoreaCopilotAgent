@@ -63,13 +63,15 @@
       ]
     },
     {
-      "id": "faq-agent-builder",
-      "title": "FAQ Agent 만들기 실습 — Agent Builder",
+      "id": "agent-builder-labs",
+      "title": "Agent Builder 실습",
       "icon": "images/illustrations/copilot-faq-agent.png",
-      "fallbackEmoji": "❓",
-      "description": "코딩 없이 Agent Builder로 Copilot Help Buddy FAQ 에이전트를 만드는 단계별 실습 가이드입니다. Copilot Chat에서 에이전트 생성, 지식 소스 연결, 안내 문구 구성까지 한 흐름으로 따라 할 수 있습니다.",
+      "fallbackEmoji": "🧩",
+      "description": "코딩 없이 Copilot Chat의 Agent Builder로 나만의 에이전트를 만드는 실습 묶음입니다. 한 번에 하나씩, 각 실습은 10분 안팎이면 끝납니다. 지식 소스를 붙이는 FAQ 에이전트부터 안내만으로 성격을 바꾸는 Devil's Advocate까지 순서대로 따라 하세요.",
       "downloads": [
-        { "label": "핸즈온 페이지 열기", "fileType": "URL", "url": "templates/faq-agent-builder/" }
+        { "label": "실습 목록 열기", "fileType": "URL", "url": "templates/agent-builder-labs/" },
+        { "label": "Lab 01 — FAQ 에이전트 만들기", "fileType": "URL", "url": "templates/faq-agent-builder/" },
+        { "label": "Lab 02 — Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" }
       ]
     },
     {
