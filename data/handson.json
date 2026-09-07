@@ -71,7 +71,7 @@
       "downloads": [
         { "label": "Lab 1. Copilot FAQ Agent 만들기", "fileType": "URL", "url": "templates/faq-agent-builder/" },
         { "label": "Lab 2. Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" },
-        { "label": "Lab 3. 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/exec-committee-agent-builder/" }
+        { "label": "Lab 3. 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/committee-agent-builder/" }
       ]
     },
     {
