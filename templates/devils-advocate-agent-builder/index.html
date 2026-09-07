@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="반대편에 서서 계획을 검증하는 Devil's Advocate 에이전트. Agent Builder에서 안내 하나로 만드는 실습 가이드." />
+  <meta name="description" content="계획을 반대편에서 검증하는 Devil's Advocate 에이전트를 Agent Builder에서 안내 하나로 만드는 실습 가이드." />
   <meta name="theme-color" content="#fafbfd" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="256x256" href="../../images/favicon-256.png" />
 
-  <title>Devil's Advocate 에이전트 만들기 실습 — M365 Agent Templates</title>
+  <title>Devil's Advocate 에이전트 만들기 실습 | M365 Agent Templates</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -266,6 +266,25 @@
       border: 1px solid var(--border);
       margin-bottom: 20px;
       box-shadow: var(--shadow-sm);
+    }
+
+    /* Concept figure (overview) */
+    .concept-figure {
+      margin: 0 0 40px;
+    }
+    .concept-figure img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .concept-figure figcaption {
+      margin-top: 12px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-dim);
+      text-align: center;
     }
 
     /* Spec table */
@@ -644,10 +663,10 @@
             </h1>
             <p class="lead">
               생성형 AI는 대체로 사용자 편을 듭니다. 계획을 보여주면 좋은 점부터 찾습니다.
-              <strong>Devil's Advocate</strong>는 반대로 움직이는 에이전트입니다. 계획의 가장 강한 반대 논거를 찾고,
-              실패하는 경로를 시간 순으로 그리고, 사용자가 검증하지 않은 채 믿고 있는 가정을 끄집어냅니다.
-              이 실습에서는 지식 소스 없이 <strong>안내(Instructions)</strong> 하나만으로
-              답변의 성격을 통째로 바꾸는 방법을 익힙니다.
+              <strong>Devil's Advocate</strong>는 반대로 움직이는 에이전트입니다. 계획의 가장 강한 반대 논거를 찾고
+              실패하는 경로를 시간 순으로 짚으며, 사용자가 검증하지 않은 채 믿고 있는 가정을 끄집어냅니다.
+              이 실습에서는 지식 소스 없이 <strong>안내(Instructions)</strong> 하나만 써서
+              답변의 성격을 바꾸는 방법을 익힙니다.
             </p>
 
             <div class="hero-meta">
@@ -673,11 +692,16 @@
           <p class="lead">기본 Copilot에 계획을 보여주면 대체로 정리해 주고 다듬어 줍니다. 그 계획이 틀렸을 가능성은 잘 짚지 않습니다.</p>
         </header>
 
+        <figure class="concept-figure">
+          <img src="images/concept-devils-advocate.png" alt="세 컷 그림. 1. 회의에서 모두가 계획에 동의한다. 2. 에이전트가 일부러 반대편에 서서 일정 지연, 예산 축소, 담당자 교체를 묻는다. 3. 그 질문에서 일정 위험 대응, 예산 축소 대안, 업무 인수인계 계획이 나와 계획이 더 강해진다." />
+          <figcaption>모두가 동의할 때 한 사람이 반대편에 섭니다. 반대하려고 반대하는 것이 아니라 아무도 묻지 않은 것을 묻기 위해서입니다.</figcaption>
+        </figure>
+
         <div class="features-grid">
           <article class="feature">
             <div class="feature-icon" aria-hidden="true">⚖️</div>
             <h3>지정된 반대자</h3>
-            <p>"advocatus diaboli"는 1587년 교황청이 시성 심사에 둔 실제 직책입니다. 후보를 반대할 사람을 미리 정해 두고, 통과하려면 그 반대를 먼저 넘게 했습니다.</p>
+            <p>"advocatus diaboli"는 1587년 교황청이 시성 심사에 둔 실제 직책입니다. 후보를 반대할 사람을 미리 정해 두고 그 반대를 넘어야 통과시켰습니다.</p>
           </article>
           <article class="feature">
             <div class="feature-icon" aria-hidden="true">🔍</div>
@@ -687,7 +711,7 @@
           <article class="feature">
             <div class="feature-icon" aria-hidden="true">🧩</div>
             <h3>지식 소스가 필요 없다</h3>
-            <p>사용자가 준 텍스트만으로 추론합니다. 안내 하나로 답변의 성격이 얼마나 달라지는지 확인하기에 좋은 실습입니다.</p>
+            <p>사용자가 준 텍스트만으로 추론합니다. 안내 하나로 답변이 얼마나 달라지는지 확인하기에 좋습니다.</p>
           </article>
         </div>
 
@@ -708,7 +732,7 @@
         <header class="section-head">
           <span class="eyebrow">How it works</span>
           <h2>이 에이전트가 답하는 순서</h2>
-          <p class="lead">안내에 출력 형식을 못박아 두면 매번 같은 순서로 답합니다. 순서 자체가 검증 절차입니다.</p>
+          <p class="lead">안내에 출력 형식을 못박아 두면 매번 같은 순서로 답합니다. 그 순서가 곧 검증 절차입니다.</p>
         </header>
 
         <ol class="steps">
@@ -720,17 +744,17 @@
           <li>
             <span class="step-num">2</span>
             <h3>제시된 근거를 친다</h3>
-            <p>사용자가 든 근거가 <strong>사실인지 해석인지</strong> 가르고, 그 하나가 무너지면 주장 전체가 무너지는지 봅니다.</p>
+            <p>사용자가 든 근거가 <strong>사실인지 해석인지</strong> 가른 뒤, 그 하나가 무너지면 주장 전체가 무너지는지 봅니다.</p>
           </li>
           <li>
             <span class="step-num">3</span>
             <h3>반대 논거와 실패 경로</h3>
-            <p>가장 강한 반대 논거 <strong>3개</strong>를 세우고, 실패한다면 어떤 경로로 실패하는지 <strong>시간 순</strong>으로 씁니다.</p>
+            <p>가장 강한 반대 논거 <strong>3개</strong>를 세우고 실패한다면 어떤 경로로 실패하는지 <strong>시간 순</strong>으로 씁니다.</p>
           </li>
           <li>
             <span class="step-num">4</span>
             <h3>뒤집는 조건과 판정</h3>
-            <p><strong>"그럼에도 이 계획이 맞으려면"</strong> 무엇이 참이어야 하는지 적고, 마지막에 한 줄로 판정합니다.</p>
+            <p><strong>"그럼에도 이 계획이 맞으려면"</strong> 무엇이 참이어야 하는지 적고 마지막에 한 줄로 판정합니다.</p>
           </li>
         </ol>
       </div>
@@ -742,7 +766,7 @@
         <header class="section-head">
           <span class="eyebrow">Hands-on Lab</span>
           <h2>Devil's Advocate 에이전트 만들기</h2>
-          <p class="lead">지식 소스 없이 안내만으로 만듭니다. 붙여넣고 테스트까지 10분이면 끝납니다.</p>
+          <p class="lead">지식 소스 없이 안내만으로 만듭니다. 붙여넣고 테스트까지 10분이면 됩니다.</p>
         </header>
 
         <!-- Step 1 -->
@@ -779,7 +803,7 @@
           <div class="tip-callout">
             <span class="tip-icon">⚠️</span>
             <div>
-              <strong>참고</strong> — 이 실습은 Copilot Chat에 내장된 <strong>Agent Builder</strong> 기능을 사용합니다.
+              <strong>참고</strong><br />이 실습은 Copilot Chat에 내장된 <strong>Agent Builder</strong> 기능을 사용합니다.
               Copilot Studio 포털을 열지 않고 Copilot Chat 안에서 구성하는 흐름입니다. 표시되는 기능은 조직 설정에 따라 다를 수 있습니다.
             </div>
           </div>
@@ -789,13 +813,13 @@
         <div class="lab-block">
           <h3>
             <span class="lab-step-badge">2</span>
-            구성(Configure) 탭 — 빈 화면 확인
+            구성(Configure) 탭에서 빈 화면 확인
           </h3>
           <p class="lab-desc">
             "건너뛰기"를 클릭하면 아래와 같은 빈 구성 화면이 열립니다. 왼쪽은 자연어 입력란, 오른쪽은 <strong>구성</strong> 탭입니다. 이름은 <strong>"새 에이전트"</strong>, 안내는 비어 있는 상태입니다.
           </p>
 
-          <img src="images/step2-configure-empty.png" alt="Agent Builder 구성 화면 — 이름이 새 에이전트이고 안내 영역이 비어 있는 초기 상태" class="lab-image" />
+          <img src="images/step2-configure-empty.png" alt="Agent Builder 구성 화면. 이름이 새 에이전트이고 안내 영역이 비어 있는 초기 상태입니다." class="lab-image" />
 
           <p class="lab-desc">
             여기서 <strong>이름</strong>, <strong>설명</strong>, <strong>안내(Instructions)</strong>를 차례로 채웁니다. 아래 표의 값을 그대로 복사해서 붙여넣으세요.
@@ -828,13 +852,13 @@
             안내(Instructions) 붙여넣기
           </h3>
           <p class="lab-desc">
-            이 실습의 핵심입니다. 아래 안내를 통째로 복사해 <strong>"안내"</strong> 영역에 붙여넣으세요. 붙여넣고 나면 아래 캡처와 같은 상태가 됩니다.
+            이 실습의 핵심입니다. 아래 안내를 전부 복사해 <strong>"안내"</strong> 영역에 붙여넣으세요. 붙여넣으면 아래 캡처와 같은 상태가 됩니다.
           </p>
 
           <img src="images/step3-instructions-filled.png" alt="Devil's Advocate 이름과 설명, 안내가 채워진 Agent Builder 구성 화면. 지식 영역은 비어 있습니다." class="lab-image" />
 
           <div class="instruction-box" style="margin-top: 20px;">
-            <div class="label">안내 (Instructions) — 아래 전체를 복사하여 "안내" 영역에 붙여넣으세요</div>
+            <div class="label">안내 (Instructions). 아래 전체를 복사해 "안내" 영역에 붙여넣으세요</div>
             <button class="copy-btn" onclick="copyInstructions(this)" aria-label="안내 복사">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
               복사
@@ -908,17 +932,17 @@
             <span class="tip-icon">💡</span>
             <div>
               <strong>이 안내에서 눈여겨볼 곳</strong><br />
-              · <strong># 출력 형식</strong> — 제목 일곱 개를 표기까지 못박았습니다. 이렇게 하지 않으면 모델이 절차를 제 식대로 요약합니다.<br />
-              · <strong>"1,100자 안팎"</strong> — 분량은 "간결하게"가 아니라 숫자로 줘야 지켜집니다.<br />
-              · <strong>"수치를 새로 만들어 쓰지 않는다"</strong> — 반박을 채우려고 통계를 지어내는 것을 막는 문장입니다.
+              · <strong># 출력 형식</strong>에 제목 일곱 개를 표기까지 못박았습니다. 이렇게 하지 않으면 모델이 절차를 제 식대로 요약합니다.<br />
+              · <strong>"1,100자 안팎"</strong>처럼 분량은 "간결하게"가 아니라 숫자로 줘야 지켜집니다.<br />
+              · <strong>"수치를 새로 만들어 쓰지 않는다"</strong>는 반박을 채우려고 통계를 지어내는 일을 막습니다.
             </div>
           </div>
 
           <div class="tip-callout">
             <span class="tip-icon">⚠️</span>
             <div>
-              <strong>지식과 웹 검색</strong> — 이 에이전트는 <strong>지식 소스를 추가하지 않습니다.</strong> 캡처의 지식 영역도 비어 있습니다.
-              웹 검색을 켜면 근거를 웹에서 주워 와 "추론"으로 표시해야 할 것을 사실처럼 쓸 수 있으니, 실습에서는 꺼 두는 쪽을 권합니다.
+              <strong>지식과 웹 검색</strong><br />이 에이전트는 <strong>지식 소스를 추가하지 않습니다.</strong> 캡처의 지식 영역도 비어 있습니다.
+              웹 검색을 켜면 근거를 웹에서 가져와 "추론"으로 표시해야 할 것을 사실처럼 쓸 수 있습니다. 실습에서는 꺼 두세요.
               사내 문서를 근거로 반박하게 하려면 SharePoint 사이트를 지식으로 추가하되, 안내의 근거 표시 규칙을 함께 손봐야 합니다.
             </div>
           </div>
@@ -931,7 +955,7 @@
             테스트하기
           </h3>
           <p class="lab-desc">
-            상단의 <strong>"사용해 보기"</strong> 탭에서 바로 테스트합니다. 자기 계획을 넣어도 되고, 아래 질문을 그대로 써도 됩니다.
+            상단의 <strong>"사용해 보기"</strong> 탭에서 바로 테스트합니다. 본인 계획을 넣어도 되고 아래 질문을 그대로 써도 됩니다.
           </p>
 
           <div class="test-questions">
@@ -955,7 +979,7 @@
           <div class="tip-callout" style="margin-top: 20px;">
             <span class="tip-icon">✅</span>
             <div>
-              <strong>체크포인트</strong> — 답변이 아래를 지키는지 확인하세요.<br />
+              <strong>체크포인트</strong><br />답변이 아래를 지키는지 확인하세요.<br />
               · <strong>검증 대상</strong>이 맨 앞에 한 문장으로 나오는지<br />
               · <strong>제시된 근거 검증</strong>이 사용자가 든 근거(예: "문의의 80퍼센트")를 직접 다루는지<br />
               · <strong>반대 논거</strong>가 3개를 넘지 않는지<br />
@@ -967,8 +991,8 @@
           <div class="tip-callout">
             <span class="tip-icon">🔬</span>
             <div>
-              <strong>같은 질문을 기본 Copilot에도 넣어 보세요</strong> — 같은 문장을 새 Copilot Chat 창에 그대로 던지고 두 답을 나란히 놓아 보면,
-              안내 하나로 답변의 성격이 얼마나 달라지는지 한눈에 보입니다. 이 실습의 진짜 목적은 그 차이를 확인하는 것입니다.
+              <strong>같은 질문을 기본 Copilot에도 넣어 보세요</strong><br />같은 문장을 새 Copilot Chat 창에 그대로 넣고 두 답을 나란히 놓아 보면,
+              안내 하나로 답변의 성격이 얼마나 달라지는지 한눈에 보입니다. 이 실습의 목적이 바로 그 차이를 확인하는 데 있습니다.
             </div>
           </div>
         </div>
@@ -1072,13 +1096,13 @@
             만들기(Create) &amp; 공유
           </h3>
           <p class="lab-desc">
-            테스트가 만족스러우면 오른쪽 상단의 <strong>"만들기"</strong> 버튼을 클릭합니다. 만들기 후 공유 창에서 이 에이전트를 누가 사용할 수 있는지 선택합니다.
+            테스트가 만족스러우면 오른쪽 상단의 <strong>"만들기"</strong> 버튼을 클릭합니다. 이어서 공유 창에서 누가 이 에이전트를 쓸 수 있는지 선택합니다.
           </p>
 
           <table class="spec-table">
             <tr>
               <th>조직 내 모든 사용자</th>
-              <td>조직 전체가 사용할 수 있게 공유합니다. 이 에이전트는 답변이 날카로우므로 팀 안에서 충분히 써 본 뒤 넓히는 편이 좋습니다.</td>
+              <td>조직 전체가 쓸 수 있게 공유합니다. 이 에이전트는 답변이 날카로우므로 팀 안에서 충분히 써 본 뒤 범위를 넓히세요.</td>
             </tr>
             <tr>
               <th>조직의 특정 사용자</th>
@@ -1147,29 +1171,29 @@
         <header class="section-head">
           <span class="eyebrow">더 해보기</span>
           <h2>안내만 바꾸면 이런 사고 도구도 만들 수 있습니다</h2>
-          <p class="lead">Devil's Advocate와 같은 방식입니다. 출력 형식을 못박고 분량을 숫자로 주면 됩니다.</p>
+          <p class="lead">Devil's Advocate를 만든 방식과 같습니다. 출력 형식을 못박고 분량을 숫자로 주면 됩니다.</p>
         </header>
 
         <div class="idea-grid">
           <article class="idea-card">
             <h3><span class="rank-badge">1</span> 프리모템 에이전트</h3>
-            <p>"6개월 뒤 이 프로젝트는 완전히 실패했다"를 사실로 놓고 부고 기사를 쓰게 합니다. 실패 원인을 발생 가능성과 타격 크기로 나누고 각각에 조기 경보 신호를 붙이도록 안내에 적으세요.</p>
+            <p>"6개월 뒤 이 프로젝트는 완전히 실패했다"를 사실로 놓고 부고 기사를 쓰게 합니다. 실패 원인을 발생 가능성과 타격 크기로 나눈 뒤, 각각에 조기 경보 신호를 붙이라고 안내에 적으세요.</p>
           </article>
           <article class="idea-card">
             <h3><span class="rank-badge">2</span> 스틸맨 에이전트</h3>
-            <p>반대편 주장을 그쪽 사람보다 더 강하게 재구성하게 합니다. Devil's Advocate가 내 계획을 친다면, 이쪽은 내가 반대하는 주장을 가장 좋은 형태로 만들어 줍니다.</p>
+            <p>반대편 주장을 그쪽 사람보다 더 강하게 재구성하게 합니다. Devil's Advocate가 내 계획을 친다면, 이쪽은 내가 반대하는 주장을 가장 강한 형태로 만들어 줍니다.</p>
           </article>
           <article class="idea-card">
             <h3><span class="rank-badge">3</span> 뒤집어 보기 에이전트</h3>
-            <p>"어떻게 성공할까" 대신 "어떻게 하면 확실히 망할까"를 먼저 다 적게 하고, 그것을 피하는 조건으로 답을 만들게 합니다.</p>
+            <p>"어떻게 성공할까" 대신 "어떻게 하면 확실히 망할까"를 먼저 다 적게 한 뒤, 그것을 피하는 조건으로 답을 만들게 합니다.</p>
           </article>
           <article class="idea-card">
             <h3><span class="rank-badge">4</span> 다섯 관점 에이전트</h3>
-            <p>낙관론자, 비관론자, 숫자 담당, 윤리 담당, 5년 뒤의 나. 다섯 역할이 각자 답하고 마지막에 의장이 종합하게 합니다. 회의 전 혼자 예행연습할 때 좋습니다.</p>
+            <p>낙관론자, 비관론자, 숫자 담당, 윤리 담당, 5년 뒤의 나. 다섯 역할이 각자 답하고 마지막에 의장이 종합합니다. 회의 전에 혼자 예행연습할 때 좋습니다.</p>
           </article>
           <article class="idea-card">
             <h3><span class="rank-badge">5</span> 쉽게 풀어주는 에이전트</h3>
-            <p>전문 개념을 신입사원도 알아듣게 바꿔 줍니다. 대상 수준을 먼저 묻고, 비유가 깨지는 지점까지 밝히도록 안내에 적으면 정확도가 올라갑니다.</p>
+            <p>전문 개념을 신입사원도 알아듣게 바꿔 줍니다. 대상 수준을 먼저 묻고 비유가 깨지는 지점까지 밝히라고 안내에 적으면 정확도가 올라갑니다.</p>
           </article>
           <article class="idea-card">
             <h3><span class="rank-badge">6</span> 제1원리 에이전트</h3>
@@ -1182,7 +1206,7 @@
           <div>
             <strong>지식이나 액션이 필요해지면?</strong><br />
             Agent Builder는 안내와 지식 소스까지를 다룹니다. 사내 시스템 호출, Power Automate 워크플로,
-            Dataverse 연동처럼 <strong>행동</strong>이 필요해지면 <strong>Copilot Studio</strong>로 넘어가세요.
+            Dataverse 연동처럼 <strong>실제 동작</strong>이 필요해지면 <strong>Copilot Studio</strong>로 넘어가세요.
             이 사이트의 다른 템플릿에서 Copilot Studio 기반 예제를 확인할 수 있습니다.
           </div>
         </div>
