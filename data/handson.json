@@ -67,11 +67,12 @@
       "title": "Agent Builder로 나만의 에이전트 만들기",
       "icon": "images/illustrations/copilot-faq-agent.png",
       "fallbackEmoji": "🛠️",
-      "description": "코딩 없이 Copilot Chat의 Agent Builder만으로 에이전트를 만드는 실습 세 편입니다. 공식 문서를 근거로 답하는 FAQ 에이전트를 먼저 만들고, 이어서 계획을 반대편에서 검증하는 Devil's Advocate 에이전트를 만듭니다. 마지막으로 보는 기준이 다른 위원 다섯 명이 안건을 놓고 다투는 심의위원회 에이전트를 만듭니다. 안내(Instructions)를 쓰는 법과 지식 소스를 붙이는 법을 익힙니다.",
+      "description": "코딩 없이 Copilot Chat의 Agent Builder만으로 에이전트를 만드는 실습 네 편입니다. 공식 문서를 근거로 답하는 FAQ 에이전트를 먼저 만들고, 이어서 계획을 반대편에서 검증하는 Devil's Advocate 에이전트를 만듭니다. 다음으로 보는 기준이 다른 위원 다섯 명이 안건을 놓고 다투는 심의위원회 에이전트를 만들고, 마지막으로 사내 규정을 지식 소스로 붙여 조항을 인용하며 심의하게 합니다. 안내(Instructions)를 쓰는 법과 지식 소스를 붙이는 법을 익힙니다.",
       "downloads": [
         { "label": "Lab 1. Copilot FAQ Agent 만들기", "fileType": "URL", "url": "templates/faq-agent-builder/" },
         { "label": "Lab 2. Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" },
-        { "label": "Lab 3. 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/committee-agent-builder/" }
+        { "label": "Lab 3. 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/committee-agent-builder/" },
+        { "label": "Lab 4. 사내 규정으로 심의하는 에이전트 만들기", "fileType": "URL", "url": "templates/committee-knowledge-agent-builder/" }
       ]
     },
     {
