@@ -95,6 +95,11 @@
 
     const fallback = escapeHtml(template.fallbackEmoji || "📦");
 
+    const updated = template.updated
+      ? '<p class="template-updated">업데이트 <time datetime="' +
+        escapeHtml(template.updated) + '">' + escapeHtml(template.updated) + "</time></p>"
+      : "";
+
     article.innerHTML =
       '<div class="template-icon">' +
         '<img src="' + escapeHtml(template.icon) + '" alt=""' +
@@ -108,6 +113,7 @@
         '<p class="template-desc">' + escapeHtml(template.description) + "</p>" +
         '<div class="downloads-label">Downloads</div>' +
         downloads +
+        updated +
       "</div>";
 
     return article;

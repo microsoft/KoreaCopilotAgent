@@ -549,6 +549,13 @@ svg {
   color: var(--text-soft);
 }
 
+.template-updated {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: -0.01em;
+}
+
 /* ============== Download All CTA ============== */
 .download-all {
   display: flex;
