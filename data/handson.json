@@ -73,7 +73,7 @@
         { "label": "Lab 2. Devil's Advocate 에이전트 만들기", "fileType": "URL", "url": "templates/devils-advocate-agent-builder/" },
         { "label": "Lab 3. 심의위원회 에이전트 만들기", "fileType": "URL", "url": "templates/committee-agent-builder/" },
         { "label": "Lab 4. 전략 자문 에이전트 만들기", "fileType": "URL", "url": "templates/strategy-advisor-agent-builder/" },
-        { "label": "Lab 5. 인장 날인 도우미 만들기", "fileType": "URL", "url": "templates/seal-request-agent-builder/" }
+        { "label": "Lab 5. 인장 날인 도우미 만들기", "fileType": "URL", "url": "templates/company-seal-agent-builder/" }
       ]
     },
     {
